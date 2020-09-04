@@ -1,0 +1,220 @@
+{
+    "common": {
+        "contact": "獲取產品",
+        "knowledge": "知識中心",
+        "faq": "常見問題",
+        "privacy": "隱私政策",
+        "do_not_reply": "此信件為系統自動發送，請勿回覆。",
+        "mail_source": "CYBAVO Security <no-reply@cybavo.com>"
+    },
+    "template_1": {
+        "html": "{{.walletcurrency}} 錢包 {{.walletname}} 創建交易{{.result}}<div><br /><strong><u>交易內容</u></strong></div><ul>從 {{.fromaddr}}</ul><ul>到 {{.toaddr}}</ul><ul>金額 {{.amount}}</ul><ul>手續費 {{.fee}}</ul><ul>發起人 {{.issuer}}</ul><ul>{{.content}}</ul>",
+        "subject": "{{.walletcurrency}} 錢包 {{.walletname}} 創建交易{{.result}}",
+        "text": "{{.walletcurrency}} 錢包 {{.walletname}} 創建交易{{.result}}\n交易內容:\n  從 {{.fromaddr}}\n  到 {{.toaddr}}\n  金額 {{.amount}}\n  手續費 {{.fee}}\n  發起人 {{.issuer}}\n\n{{.content}}"
+    },
+    "template_2": {
+        "html": "<strong>{{.walletcurrency}}</strong> 錢包 &quot;<strong>{{.walletname}}</strong>&quot; ({{.walletaddress}}) 有了新規則, 將在{{.validsens}}生效 (生效時間&nbsp;{{.validtime}})<div><br /><strong><u>改變內容</u></strong></div><ul>{{.htmlchangesummary}}</ul><div><strong><u>新規則內容</u></strong></div><ul>{{.htmlnewpolicydetail}}</ul>",
+        "subject": "{{.walletcurrency}} 錢包 {{.walletname}} 規則改變",
+        "text": "{{.walletcurrency}} 錢包 {{.walletname}}(({{.walletaddress}}))有了新規則, 將在{{.validsens}}生效 (生效時間 {{.validtime}})\n改變內容\n\n{{.textchangesummary}}\n新規則內容\n\n{{.textnewpolicydetail}}"
+    },
+    "template_3": {
+        "html": "{{.walletcurrency}} 錢包 {{.walletname}} 創建{{.result}}<div><br /><strong><u>內容:</u></strong></div><ul>地址: {{.walletaddress}}</ul><ul>創建者: {{.creator}}</ul><ul>{{.content}}</ul>",
+        "subject": "{{.walletcurrency}} 錢包 {{.walletname}} 創建{{.result}}",
+        "text": "{{.walletcurrency}} 錢包 {{.walletname}} 創建{{.result}}\n內容:\n  錢包地址: {{.walletaddress}}\n  創建者: {{.creator}}\n  {{.content}}"
+    },
+    "template_4": {
+        "subject": "[警告] 餘額監測規則已被觸發",
+        "text": "親愛的 {{.user_name}},\n\n 您設定的餘額監測規則 {{.policyname}} 已被觸發.\n\n{{.content}}\n\n可以針對該地址進行水位調整.",
+        "html": "親愛的 {{.user_name}},<br/><br/> 您設定的餘額監測規則 <strong>{{.policyname}}</strong> 已被觸發.<br /><ul>{{.content}}</ul><br />可以針對該地址進行水位調整."
+    },
+    "template_5": {
+        "html": "你的預約交易 {{.rulename}} 在執行期間發生錯誤<div><br /><strong><u>詳情</u></strong></div><ul>從 {{.fromwallet}}</ul><ul>到 {{.toaddr}}</ul><ul>啟動條件 {{.condition}}</ul><url>排程 {{.schedule}}</ul><ul>金額 {{.amount}}</ul><ul>手續費 {{.fee}}</ul><ul>說明 {{.description}}</ul><ul>錯誤 {{.content}}</ul>",
+        "subject": "預約交易 {{.rulename}} 執行失敗",
+        "text": "你的預約交易 {{.rulename}} 在執行期間發生錯誤\n\n詳情:\n  從 {{.fromwallet}}\n  到 {{.toaddr}}\n  啟動條件 {{.condition}}\n排程 {{.schedule}}\n金額 {{.amount}}\n  手續費 {{.fee}}\n說明 {{.description}}\n錯誤 {{.content}}"
+    },
+    "template_6": {
+        "html": "{{.walletcurrency}} 錢包 {{.walletname}} 有一筆預約交易需要你的審批<br />",
+        "subject": "交易 #{{.txno}} 需要你的審批 (根據預約交易 {{.rulename}}創建)",
+        "text": "{{.walletcurrency}} 錢包 {{.walletname}} 有一筆預約交易需要你的審批"
+    },
+    "template_7": {
+        "html": "親愛的 {{.user_name}},<br /><br /> 你的帳號己經被建立. {{if .password}}請參考以下資訊以激活你的帳號.{{else}}請打開登入網址, 使用訪客功能登入.{{end}}<br /><br /> <ul>登入網址: {{.website}}</ul><ul>登入帳號: {{.email}}</ul>{{if .password}}<ul>預設密碼: {{.password}}</ul><br />注意: 第一次必須使用桌面瀏覽器登入及綁定app. <br /><br />步驟:<br />1. 使用瀏覽器登入你的帳號<br />2. 檢查你的email,並點擊裡面的連結<br />3. 重新登入並遵從指令在你的手機上安裝CYBAVO Authenticator<br />4. 使用手機掃描QR CODE<br />5. 設定錢包的個人安全碼  * 請注意! 務必牢記你的安全碼 *<br />6. 在網頁上更改你的密碼<br />7. 更改介面語言<br />8. 完成. <br/>{{end}}<br/>感謝你選擇使用CYBAVO的服務來保護你的數位資產!",
+        "subject": "在Cybavo Vault上的帳號{{.user_name}}己被建立",
+        "text": "親愛的 {{.user_name}},\n\n 你的帳號己經被建立. {{if .password}}請參考以下資訊以激活你的帳號.{{else}}請打開登入網址, 使用訪客功能登入.{{end}}\n\n 登入網址: {{.website}}\n登入帳號: {{.email}}\n{{if .password}}預設密碼: {{.password}}\n\n注意: 第一次必須使用桌面瀏覽器登入及綁定app. \n\n步驟:\n1. 使用瀏覽器登入你的帳號\n2. 檢查你的email,並點擊裡面的連結\n3. 重新登入並遵從指令在你的手機上安裝CYBAVO Authenticator\n4. 使用手機掃描QR CODE\n5. 設定錢包的個人安全碼  * 請注意! 務必牢記你的安全碼 *\n6. 在網頁上更改你的密碼\n7. 更改介面語言\n8. 完成. \n{{end}}\n感謝你選擇使用CYBAVO的服務來保護你的數位資產!"
+    },
+    "template_8": {
+        "html": "{{.walletcurrency}} 錢包 {{.walletname}} 創建批次交易{{.result}}<div><br /><strong><u>交易內容</u></strong></div><ul>從 {{.fromaddr}}</ul><ul>到 {{.toaddr}}</ul><ul>金額 {{.amount}}</ul><ul>手續費 {{.fee}}</ul><ul>發起人 {{.issuer}}</ul><ul>{{.content}}</ul>",
+        "subject": "{{.walletcurrency}} 錢包 {{.walletname}} 創建批次交易{{.result}}",
+        "text": "{{.walletcurrency}} 錢包 {{.walletname}} 創建批次交易{{.result}}\n交易內容:\n  從 {{.fromaddr}}\n  到 {{.toaddr}}\n  金額 {{.amount}}\n  手續費 {{.fee}}\n  發起人 {{.issuer}}\n\n{{.content}}"
+    },
+    "template_9": {
+        "html": "親愛的 {{.user_name}},<br /><br /><div>您的帳號嘗試登入失敗次數過多，系統己將其鎖定<br /><br />點擊以下的連結以重新登入<br /><br /></div>{{.url}}<br /><br />連結將在15分鐘內失效.",
+        "subject": "安全警示 [登入失敗次數過多]",
+        "text": "親愛的 {{.user_name}},\n\n您的帳號嘗試登入失敗次數過多，系統己將其鎖定\n點擊以下的連結以重新登入\n{{.url}}\n連結將在15分鐘內失效."
+    },
+    "template_10": {
+        "html": "親愛的 {{.admin}},<br /><br /><div>使用者 {{.user}}({{.email}}) 嘗試登入失敗次數過多，系統己將其鎖定.<br />",
+        "subject": "安全警示 [{{.user}} 登入失敗次數過多]",
+        "text": "親愛的 {{.admin}},\n\n使用者 {{.user}}({{.email}}) 嘗試登入失敗次數過多，系統己將其鎖定."
+    },
+    "template_11": {
+        "html": "親愛的 {{.target_user}},<br /><br /> 您的帳號角色已被 {{.admin_user}} 從 {{.previous_role}} 更改為 {{.new_role}}。<br /><br />如有任何疑問，請與您的管理員聯絡。",
+        "subject": "CYBAVO VAULT帳號角色已被更改為{{.new_role}}",
+        "text": "親愛的 {{.target_user}},\n\n 您的帳號角色已被 {{.admin_user}} 從 {{.previous_role}} 更改為 {{.new_role}}。\n如有任何疑問，請與您的管理員聯絡。"
+    },
+    "template_12": {
+        "html": "親愛的 {{.target_user}},<br /> <br />  您在CYBAVO VAULT的帳號已被 {{.admin_user}} 關閉<br />如有任何疑問，請與您的管理員聯絡。",
+        "subject": "CYBAVO VAULT帳號已被關閉",
+        "text": "親愛的 {{.target_user}},\n\n 您在CYBAVO VAULT的帳號已被 {{.admin_user}} 關閉。 \n如有任何疑問，請與您的管理員聯絡。"
+    },
+    "template_13": {
+        "html": "您的{{.walletcurrency}}錢包 {{.walletname}} 已經被{{.result}}<div><br /><strong><u>錢包細節:</u></strong></div><ul>錢包地址: {{.walletaddress}}</ul><ul>創建者: {{.creator}}<ul><ul>{{.content}}</ul>",
+        "subject": "安全警示 [封存錢包]",
+        "text": "您的{{.walletcurrency}}錢包 {{.walletname}} 已經被{{.result}}\n\n錢包細節:\n  錢包地址: {{.walletaddress}}\n  創建者: {{.creator}}\n  {{.content}}"
+    },
+    "template_16": {
+        "subject": "{{.date}}日誌報告",
+        "text": "系統日誌報告的範圍從{{.from}}到{{.to}} \n\n。有關詳細信息，請參閱附件。",
+        "html": "<p>系統日誌報告的範圍從{{.from}}到{{.to}} </p> <br>有關詳細信息，請參閱附件。"
+    },
+    "template_17": {
+        "html": "{{.walletcurrency}} 錢包 {{.walletname}} 創建交易{{.result}}<div><br /><strong><u>交易內容</u></strong></div><ul>從 {{.fromaddr}}</ul><ul>到 {{.toaddr}}</ul><ul>金額 {{.amount}}</ul><ul>手續費 {{.fee}}</ul><ul>發起人 {{.issuer}}</ul>{{if .memo}}<ul>Memo {{.memo}}</ul>{{end}}{{if .description}}<ul>備註 {{.description}}</ul>{{end}}{{if .txid}}<ul>TxId {{.txid}}</ul><ul>URL {{.link}}</ul>{{end}}{{.content}}",
+        "subject": "{{.walletcurrency}} 錢包 {{.walletname}} 創建交易{{.result}}",
+        "text": "{{.walletcurrency}} 錢包 {{.walletname}} 創建交易{{.result}}\n交易內容:\n  從 {{.fromaddr}}\n  到 {{.toaddr}}\n  金額 {{.amount}}\n  手續費 {{.fee}}\n  發起人 {{.issuer}}\n  {{if .memo}}Memo {{.memo}}\n{{end}}  {{if .description}}備註 {{.description}}\n{{end}}  {{if .txid}}TxId {{.txid}}\n{{end}}  URL {{.link}}\n\n{{.content}}"
+    },
+    "template_18": {
+        "html": "已更新{{.type}}錢包 \"{{.wallet}}\" API code。<br /><br />請到CYBAVO網站查看狀態。<br />",
+        "subject": "已更新{{.type}}錢包 \"{{.wallet}}\" API code",
+        "text": "已更新{{.type}}錢包 \"{{.wallet}}\" API code。\n\n請到CYBAVO網站查看狀態。"
+    },
+    "template_19": {
+        "html": "{{.type}}錢包\"{{.wallet}}\"回調失敗<br />請訪問CYBAVO網站以獲得詳情<br />",
+        "subject": "{{.type}}錢包\"{{.wallet}}\"回調失敗",
+        "text": "{{.type}}錢包\"{{.wallet}}\"回調失敗.\n請訪問CYBAVO網站以獲得詳情\n"
+    },
+    "template_20": {
+        "html": "{{.type}}錢包\"{{.wallet}}\"歸帳交易己閒置超過12小時<br /><br />請訪問CYBAVO網站查詢以下單號:<br /> {{.orders}}<br />",
+        "subject": "{{.type}}錢包\"{{.wallet}}\"交易己閒置過久",
+        "text": "{{.type}}錢包\"{{.wallet}}\"交易己閒置超過12小時\n\n  請訪問CYBAVO網站查詢以下單號:\n {{.orders}}"
+    },
+    "template_42": {
+        "html": "{{.type}}錢包\"{{.wallet}}\"出帳交易己閒置超過12小時<br /><br />請訪問CYBAVO網站查詢以下單號:<br /> {{.orders}}<br />",
+        "subject": "{{.type}}錢包\"{{.wallet}}\"交易己閒置過久",
+        "text": "{{.type}}錢包\"{{.wallet}}\"交易己閒置超過12小時\n\n  請訪問CYBAVO網站查詢以下單號:\n {{.orders}}"
+    },
+    "template_21": {
+        "html": "提幣錢包\"{{.wallet}}\"提幣規則變更.<br />詳情:<br /><ul>定時: {{.delay}}<br>手續費: {{.fee}}</ul>",
+        "subject": "提幣錢包\"{{.wallet}}\"提幣規則變更",
+        "text": "提幣錢包\"{{.wallet}}\"提幣規則變更.\n  詳情:\n\n 定時: {{.delay}}\n手續費: {{.fee}}"
+    },
+    "template_22": {
+        "html": "{{.type}}錢包\"{{.wallet}}\"{{.action}}失敗<br /><br />請訪問CYBAVO網站查看以下單號:<br />{{.orders}}",
+        "subject": "{{.type}}錢包\"{{.wallet}}\"{{.action}}失敗",
+        "text": "{{.type}}錢包\"{{.wallet}}\"{{.action}}失敗\n\n請訪問CYBAVO網站查看以下單號:\n {{.orders}} "
+    },
+    "template_23": {
+        "html": "充值錢包\"{{.wallet}}\"歸帳規則變更.<br />詳情:<br />{{range $rule := $.rules}}<ul>條件: {{$rule.condition}}<br>手續費: {{$rule.fee}}<br>出帳地址: {{$rule.outgoing}}<br>排程 (UTC): {{$rule.schedule}}</ul>{{end}}",
+        "subject": "充值錢包\"{{.wallet}}\"歸帳規則變更",
+        "text": "充值錢包\"{{.wallet}}\"歸帳規則變更.\n  詳情:\n\n {{range $rule := $.rules}}條件: {{$rule.condition}}\n手續費: {{$rule.fee}}\n出帳地址: {{$rule.outgoing}}\n排程 (UTC): {{$rule.schedule}}\n{{end}}"
+    },
+    "template_24": {
+        "html": "親愛的 {{.user_name}},<br /><br />您的錢包{{.wallet_name}}的API TOKEN{{.expired_title}}. 過期時間:{{.expired_time}}<br />請回到CYBAVO系統刷新TOKEN並更新到您的服務中.",
+        "subject": "您的錢包{{.wallet_name}}的API TOKEN{{.expired_title}}",
+        "text": "親愛的 {{.user_name}}, \n\n 您的錢包{{.wallet_name}}的API TOKEN{{.expired_title}}. 過期時間:{{.expired_time}})\n\n.請回到CYBAVO系統刷新TOKEN並更新到您的服務中."
+    },
+    "template_25": {
+        "html": "錢包 {{.wallet_name}} 的風險控制水位已經達到 {{.value}}%<br/<br/>>到網站上可取得更多訊息",
+        "subject": "錢包 {{.wallet_name}} 的風險控制水位警報",
+        "text": "錢包 {{.wallet_name}} 的風險控制水位已經達到 {{.value}}%\n\n到網站上可取得更多訊息"
+    },
+    "template_26": {
+        "html": "錢包 {{.wallet_name}} 的餘額太低無法進行自動交易，及時補充水位後，交易就可正常進行",
+        "subject": "錢包 {{.wallet_name}} 餘額警示，水位過低無法進行交易",
+        "text": "錢包 {{.wallet_name}} 的餘額太低而無法運行，及時補充水位後，交易就可正常進行"
+    },
+    "template_27": {
+        "subject": "{{.wallet_ticker_symtol}}錢包{{.wallet_name}}的同步狀況正在落後",
+        "text": "{{.wallet_ticker_symtol}}錢包{{.wallet_name}}的同步狀況有{{.value}}塊的落後.\n\n請在收發系統上檢查你的同步狀況。如有任何問題請連繫CYBAVO",
+        "html": "{{.wallet_ticker_symtol}}錢包{{.wallet_name}}的同步狀況有{{.value}}塊的落後.<br><br>請在收發系統上檢查你的同步狀況。如有任何問題請連繫CYBAVO"
+    },
+    "template_28": {
+        "subject": "錢包{{.wallet_name}}的歸帳報告",
+        "text": "親愛的{{.user_name}}\n\n你的充值錢包{{.wallet_name}}己經觸發歸帳規則{{.policy_name}}，總共 {{.value}}{{.currency}} 己經被歸帳至 {{.outgoing_address_name}}:{{.outgoing_address}}\n\n\n可以查看你的錢包以確認。",
+        "html": "親愛的{{.user_name}}<br><p>你的充值錢包{{.wallet_name}}己經觸發歸帳規則{{.policy_name}}，總共 {{.value}}{{.currency}} 己經被歸帳至 {{.outgoing_address_name}}:{{.outgoing_address}}</p><br><br><p>可以查看你的錢包以確認。</p>"
+    },
+    "template_29": {
+        "subject": "錢包{{.wallet_name}}的提幣報告",
+        "text": "親愛的{{.user_name}}\n\n你的提幣錢包{{.wallet_name}}己經觸發提幣規則{{.policy_name}}, 總共 {{.value}}{{.currency}} 己經提幣至 {{.address_num}} 個地址\n\n\n可以查看你的錢包以確認。",
+        "html": "親愛的{{.user_name}}<br><br>你的提幣錢包{{.wallet_name}}己經觸發提幣規則{{.policy_name}}, 總共 {{.value}}{{.currency}} 己經提幣至 {{.address_num}} 個地址<br><br><br>可以查看你的錢包以確認。"
+    },
+    "template_30": {
+        "html": "親愛的 {{.target_user}},<br /> <br /> 您在CYBAVO VAULT的帳號已被 {{.admin_user}} 啟用。 <br />如有任何疑問，請與您的管理員聯絡。",
+        "subject": "CYBAVO VAULT帳號已被啟用",
+        "text": "親愛的 {{.target_user}},\n\n 您在CYBAVO VAULT的帳號已被 {{.admin_user}} 啟用。 \n如有任何疑問，請與您的管理員聯絡。"
+    },
+    "template_32": {
+        "html": "您的{{.walletcurrency}}錢包 {{.walletname}} 已經被{{.result}}<div><br /><strong><u>錢包細節:</u></strong></div><ul>錢包地址: {{.walletaddress}}</ul><ul>創建者: {{.creator}}</ul><ul>{{.content}}</ul>",
+        "subject": "安全警示 [錢包解除封存]",
+        "text": "您的{{.walletcurrency}}錢包 {{.walletname}} 已經被{{.result}}\n\n錢包細節:\n  錢包地址: {{.walletaddress}}\n  創建者: {{.creator}}\n  {{.content}}"
+    },
+    "template_33": {
+        "html": "{{.walletcurrency}} 錢包 {{.walletname}} {{.behavior}}{{.result}}<div><br /><strong><u>交易內容</u></strong></div><ul>從 {{.fromaddr}}</ul><ul>到 {{.toaddr}}</ul><ul>金額 {{.amount}}</ul><ul>手續費 {{.fee}}</ul><ul>Memo {{.memo}}</ul><ul>發起人 {{.issuer}}</ul><ul>{{.content}}</ul>",
+        "subject": "{{.walletcurrency}} 錢包 {{.walletname}} {{.behavior}}{{.result}}",
+        "text": "{{.walletcurrency}} 錢包 {{.walletname}} {{.behavior}}{{.result}}\n交易內容:\n  從 {{.fromaddr}}\n  到 {{.toaddr}}\n  金額 {{.amount}}\n  手續費 {{.fee}}\n  Memo {{.memo}}\n  發起人 {{.issuer}}\n\n{{.content}}"
+    },
+    "template_34": {
+        "html": "{{.walletcurrency}} 錢包 {{.walletname}} 創建交易{{.result}}<div><br /><strong><u>交易內容</u></strong></div><ul>從 {{.fromaddr}}</ul><ul>到 {{.toaddr}}</ul><ul>出帳金額 {{.amount}}</ul><ul>到帳金額 {{.realamount}}</ul><ul>區塊鏈手續費 {{.fee}}</ul><ul>平台手續費 {{.pfee}}</ul><ul>發起人 {{.issuer}}</ul><ul>Memo {{.memo}}</ul><ul>備註 {{.description}}</ul><ul>TxId {{.txid}}</ul><ul>URL {{.link}}</ul><ul>{{.content}}</ul>",
+        "subject": "{{.walletcurrency}} 錢包 {{.walletname}} 創建交易{{.result}}",
+        "text": "{{.walletcurrency}} 錢包 {{.walletname}} 創建交易{{.result}}\n交易內容:\n  從 {{.fromaddr}}\n  到 {{.toaddr}}\n  出帳金額 {{.amount}}\n  到帳金額 {{.realamount}}\n  區塊鏈手續費 {{.fee}}\n  平台手續費 {{.pfee}}\n  發起人 {{.issuer}}\n  Memo {{.memo}}\n  備註 {{.description}}\n  TxId {{.txid}}\n  URL {{.link}}\n\n{{.content}}"
+    },
+    "template_35": {
+        "html": "親愛的 {{.user_name}},<br /><br /> 請點擊下方連結去重新設定您的密碼:<br /><ul>{{.link}}</ul><br /><br />連結將在30分鐘後失效",
+        "subject": "忘記密碼 - {{.user_name}}",
+        "text": "親愛的 {{.user_name}},\n\n  請點擊下方連結去重新設定您的密碼\n {{.link}}\n連結將在30分鐘後失效"
+    },
+    "template_36": {
+        "html": "親愛的 {{.user_name}},<br /><br />你在網頁上提出了 {{.behavior}} 的請求, 請將下方的六位數字填入網頁進行驗證.<br /><ul>{{.digitalnum}}</ul><br />若你未做過此請求, 請忽略此信件.",
+        "subject": "驗證信件 - {{.behavior}}",
+        "text": "親愛的 {{.user_name}},\n\n 你在網頁上提出了 {{.behavior}} 的請求, 請將下方的六位數字填入網頁進行驗證.\n\n{{.digitalnum}}\n\n若你未做過此請求, 請忽略此信件."
+    },
+    "template_39": {
+        "html": "親愛的 {{.user_name}},<div><br />你的帳戶剛與一個新的裝置{{.device}}綁定。</div><br />因此系統傳送這封電子郵件給你，以確認綁定者確實是你本人.<br />",
+        "subject": "安全警示 [重新綁定裝置]",
+        "text": "親愛的 {{.user_name}},\n\n你的帳戶剛與一個新的裝置{{.device}}綁定。\n因此系統傳送這封電子郵件給你，以確認登入者確實是你本人。"
+    },
+    "template_40": {
+        "html": "{{.walletcurrency}} 錢包 {{.walletname}} 創建{{.result}}<div><br /><strong><u>內容:</u></strong></div><ul>地址: {{.walletaddress}}</ul><ul>創建者: {{.creator}}</ul><ul>對應到錢包: {{.mappedwalletname}}</ul><ul>{{.content}}</ul>",
+        "subject": "{{.walletcurrency}} 錢包 {{.walletname}} 創建{{.result}}, 對應到錢包 {{.mappedwalletname}}",
+        "text": "{{.walletcurrency}} 錢包 {{.walletname}} 創建{{.result}}\n內容:\n  錢包地址: {{.walletaddress}}\n  創建者: {{.creator}}\n  對應到錢包: {{.mappedwalletname}}\n{{.content}}"
+    },
+    "template_41": {
+        "html": "親愛的 {{.user_name}},<br /><br />您的帳號已經成功創建.<br />請點擊下方連結激活您的帳號:<br /><ul>{{.link}}</ul>",
+        "subject": "激活信件 - {{.user_name}}",
+        "text": "親愛的 {{.user_name}},\n\n  您的帳號已經成功創建.\n  請點擊下方連結激活您的帳號:\n\n {{.link}}"
+    },
+    "template_43": {
+        "subject": "訪客登入 - {{.user_name}}",
+        "text": "親愛的 {{.user_name}},\n\n  請點擊下方連結登入您的帳號:\n {{.link}}\n連結將在{{.duration}}分鐘後失效",
+        "html": "親愛的 {{.user_name}},<br /><br /> 請點擊下方連結登入您的帳號:<br /><ul>{{.link}}</ul><br /><br />連結將在{{.duration}}分鐘後失效"
+    },
+    "template_44": {
+        "html": "錢包 {{.wallet_name}} 的水池餘額太低無法進行自動交易，及時補充水位後，交易就可正常進行",
+        "subject": "錢包 {{.wallet_name}} 水池餘額警示，水位過低無法進行交易",
+        "text": "錢包 {{.wallet_name}} 的水池餘額太低而無法運行，及時補充水位後，交易就可正常進行"
+    },
+    "template_45": {
+        "subject": "{{.type}} 錢包 \"{{.wallet}}\" 交易被丟棄",
+        "text": "{{.type}} 錢包 {{.wallet}} 交易被丟棄.\n\n請訪問CYBAVO網站查詢以下單號:\n {{.orders}}",
+        "html": "{{.type}} 錢包 {{.wallet}} 交易被丟棄.<br/><br/>請訪問CYBAVO網站查詢以下單號:<br/> {{.orders}}"
+    },
+    "template_46": {
+        "subject": "解鎖錢包規則冷卻時間 - 驗證碼",
+        "text": "親愛的{{.user_name}},\n\n你提出了一個解鎖錢包規則冷卻時間的請求\n請使用以下驗證碼\n\n{{.digitalnum}}\n\n如果你沒有發出解鎖請求，我們建議您儘速更換密碼並連繫support@cybavo.com。\n\n謝謝",
+        "html": "親愛的{{.user_name}},<br /><br />你提出了一個解鎖錢包規則冷卻時間的請求<br />請使用以下驗證碼<br /><ul>{{.digitalnum}}</ul>如果你沒有發出解鎖請求，我們建議您儘速更換密碼並連繫support@cybavo.com。<br /><br />謝謝"
+    },
+    "template_47": {
+        "subject": "安全性通知 [裝置綁定]",
+        "text": "親愛的{{.user_name}},\n\n你的裝置己經與下列裝置綁定:\n{{.device}}.\n\n如果你沒有發出裝置綁定，我們建議您儘速更換密碼並連繫support@cybavo.com。\n\n謝謝",
+        "html": "親愛的{{.user_name}},<div><br />你的裝置己經與下列裝置綁定:<br/>{{.device}}.</div><br /><br />如果你沒有發出裝置綁定，我們建議您儘速更換密碼並連繫support@cybavo.com。<br /><br />謝謝"
+    }
+}

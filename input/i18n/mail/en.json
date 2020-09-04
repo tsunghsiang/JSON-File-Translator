@@ -1,0 +1,220 @@
+{
+    "common": {
+        "contact": "Contact",
+        "knowledge": "Knowledge Center",
+        "faq": "FAQs",
+        "privacy": "Privacy",
+        "do_not_reply": "This mail is automatically sent by the system, please do not reply directly.",
+        "mail_source": "CYBAVO Security <no-reply@cybavo.com>"            
+    },
+    "template_1": {
+        "subject": "{{.walletcurrency}} Wallet {{.walletname}} create transaction {{.result}}",
+        "text": "The {{.walletcurrency}} Wallet {{.walletname}} create transaction {{.result}}\n\nDetail:\n  From: {{.fromaddr}}\n  To: {{.toaddr}}\n  Amount: {{.amount}}\n  Fee: {{.fee}}\n  Issuer: {{.issuer}}\n\n{{.content}}",
+        "html": "The {{.walletcurrency}} Wallet {{.walletname}} create transaction {{.result}}<div><br /><strong><u>Detail</u></strong></div><ul>From: {{.fromaddr}}</ul><ul>To: {{.toaddr}}</ul><ul>Amount: {{.amount}}</ul><ul>Fee: {{.fee}}</ul><ul>Issuer: {{.issuer}}</ul>{{.content}}"
+    },
+    "template_2": {
+        "subject": "{{.walletcurrency}} Wallet {{.walletname}} policy changed",
+        "text": "The {{.walletcurrency}} Wallet {{.walletname}}(({{.walletaddress}}))has a new policy,it will be effective {{.validsens}} (at {{.validtime}})\n\nChange Summary(Only show the differences)\n\n{{.textchangesummary}}\n\nNew Wallet Policy Details\n\n{{.textnewpolicydetail}}",
+        "html": "The <strong>{{.walletcurrency}}</strong> Wallet &quot;<strong>{{.walletname}}</strong>&quot; ({{.walletaddress}}) has a new policy, it will be effective {{.validsens}} (at&nbsp;{{.validtime}})<div><br /><strong><u>Change Summary(Only show the differences)</u></strong></div><ul>{{.htmlchangesummary}}</ul><div><strong><u>New Wallet Policy Details</u></strong></div><ul>{{.htmlnewpolicydetail}}</ul>"
+    },
+    "template_3": {
+        "subject": "Create {{.walletcurrency}} Wallet {{.walletname}} {{.result}}",
+        "text": "The {{.walletcurrency}} Wallet {{.walletname}} create {{.result}}\n\nDetail:\n  Address: {{.walletaddress}}\n  Creator: {{.creator}}\n  {{.content}}",
+        "html": "The {{.walletcurrency}} Wallet {{.walletname}} create {{.result}}<div><br /><strong><u>Detail:</u></strong></div><ul>Address: {{.walletaddress}}</ul><ul>Creator: {{.creator}}</ul><ul>{{.content}}</ul>"
+    },
+    "template_4": {
+        "subject": "[Warning] Balance Monitor Policy was triggered",
+        "text": "Dear {{.user_name}},\n\n your balance monitor on policy {{.policyname}} was triggered\n\n{{.content}}\n\nIt's time to do more action on this wallet.",
+        "html": "Dear {{.user_name}},<br /><br /> your balance monitor on policy <strong>{{.policyname}}</strong> was triggered.<br /><ul>{{.content}}</ul><br />It's time to do more action on this wallet."
+    },
+    "template_5": {
+        "subject": "Schedule withdraw {{.rulename}} executed failed",
+        "text": "Your schedule withdraw {{.rulename}} has error during execution\n\nDetail:\nFrom: {{.fromwallet}}\nTo: {{.toaddr}}\nCondition: {{.condition}}\nSchedule: {{.schedule}}\nAmount: {{.amount}}\nFee: {{.fee}}\nDescription: {{.description}}\nError: {{.content}}",
+        "html": "Your schedule withdraw {{.rulename}} has error during execution<div><br /><strong><u>Detail:</u></strong></div><ul>From: {{.fromwallet}}</ul><ul>To: {{.toaddr}}</ul><ul>Condition: {{.condition}}</ul>Schedule: {{.schedule}}</ul><ul>Amount: {{.amount}}</ul><ul>Fee: {{.fee}}</ul><ul>Description: {{.description}}</ul><ul>Error: {{.content}}"
+    },
+    "template_6": {
+        "subject": "Transaction #{{.txno}} created by {{.rulename}} needs your approval",
+        "text": "{{.walletcurrency}} Wallet {{.walletname}} has a scheulde withdraw transaction needs your approval",
+        "html": "{{.walletcurrency}} Wallet {{.walletname}} has a scheulde withdraw transaction needs your approval"
+    },
+    "template_7": {
+        "subject": "Account created for {{.user_name}} on CYBAVO VAULT",
+        "text": "Dear {{.user_name}},\n\n Your account has been created. {{if .password}}The following information help you to activate your account.{{else}}Please open the login website and continue as guest by the login account.{{end}}\n\n Login website: {{.website}}\nLogin account: {{.email}}\n{{if .password}}Default password: {{.password}}\n\nNOTICE: For the first time, you have to use Desktop browser to perform login and activation for Mobile app. \n\nSteps:\n1. Use desktop or laptop browser to browser the login website\n2. Login by the account and default password\n3. Change the default password and re-login to the system\n4. Follow the wizard to install CYBAVO Authenticator app on your mobile phone\n5. Scan QR code which display on website to pair with your CYBAVO Authenticator app\n6. Setup your personal wallet PIN CODE  * Most Important! Please remember your PIN Code as well *\n7. Change language for your preference on the website\n8. You are all set. Done. {{end}}\n\nThank you for choosing CYBAVO's service to protect your digital asset!",
+        "html": "Dear {{.user_name}},<br /><br /> Your account has been created. {{if .password}}The following information help you to activate your account.{{else}}Please open the login website and continue as guest by the login account.{{end}}<br /><br /> <ul>Login website: {{.website}}</ul><ul>Login account: {{.email}}</ul>{{if .password}}<ul>Default password: {{.password}}</ul><br />NOTICE: For the first time, you have to use Desktop browser to perform login and activation for Mobile app. <br /><br />Steps:<br />1. Use desktop or laptop browser to browser the login website<br />2. Login by the account and default password<br />3. Change the default password and re-login to the system<br />4. Follow the wizard to install CYBAVO Authenticator app on your mobile phone<br />5. Scan QR code which display on website to pair with your CYBAVO Authenticator app<br />6. Setup your personal wallet PIN CODE  * Most Important! Please remember your PIN Code as well *<br />7. Change language for your preference on the website<br />8. You are all set. Done. {{end}}<br/><br/>Thank you for choosing CYBAVO's service to protect your digital asset!"
+    },
+    "template_8": {
+        "subject": "{{.walletcurrency}} Wallet {{.walletname}} create batch transaction {{.result}}",
+        "text": "The {{.walletcurrency}} Wallet {{.walletname}} create batch transaction {{.result}}\n\nDetail:\n  From: {{.fromaddr}}\n  To: {{.toaddr}}\n  Amount: {{.amount}}\n  Fee: {{.fee}}\n  Issuer: {{.issuer}}\n\n{{.content}}",
+        "html": "The {{.walletcurrency}} Wallet {{.walletname}} create batch transaction {{.result}}<div><br /><strong><u>Detail</u></strong></div><ul>From: {{.fromaddr}}</ul><ul>To: {{.toaddr}}</ul><ul>Amount: {{.amount}}</ul><ul>Fee: {{.fee}}</ul><ul>Issuer {{.issuer}}</ul>{{.content}}"
+    },
+    "template_9": {
+        "subject": "Security alert [Login fail too many times]",
+        "text": "Dear {{.user_name}},\n\nYour account just tried to login with wrong password too many times, so the system locked the login behavior.\nUnlock it by clicking the following link and then you can do the login again\n{{.url}}\nThe link will be expired in 15 minutes.",
+        "html": "Dear {{.user_name}},<br /><br /><div>Your account just tried to login with wrong password too many times, so the system locked the login behavior.<br /><br />Unlock it by clicking the following link and then you can do the login again<br /><br /></div>{{.url}}<br /><br />The link will be expired in 15 minutes."
+    },
+    "template_10": {
+        "subject": "Security alert [{{.user}} login fail too many times]",
+        "text": "Dear {{.admin}},\n\nUser {{.user}}({{.email}}) just tried to login with wrong password too many times, so the system locked the login behavior.",
+        "html": "Dear {{.admin}},<br /><br /><div>User {{.user}}({{.email}}) just tried to login with wrong password too many times, so the system locked the login behavior."
+    },
+    "template_11": {
+        "subject": "Account's role changed to {{.new_role}} on CYBAVO VAULT",
+        "text": "Dear {{.target_user}},\n\n Your account's role has been changed to {{.new_role}} from {{.previous_role}} by {{.admin_user}}. \nIf there is any question, please contact your administrator.",
+        "html": "Dear {{.target_user}},<br /><br /> Your account's role has been changed to {{.new_role}} from {{.previous_role}} by {{.admin_user}}.<br />If there is any question, please contact your administrator."
+    },
+    "template_12": {
+        "subject": "Account has been disabled on CYBAVO VAULT",
+        "text": "Dear {{.target_user}},\n\n Your account has been disabled by {{.admin_user}} on CYBAVO VAULT. \nIf there is any question, please contact your administrator.",
+        "html": "Dear {{.target_user}},<br /><br />  Your account has been disabled by {{.admin_user}} on CYBAVO VAULT.<br />If there is any question, please contact your administrator."
+    },
+    "template_13": {
+        "subject": "Security Alert [Archive Wallet]",
+        "text": "The {{.walletcurrency}} Wallet {{.walletname}} was {{.result}}\n\nDetail:\n  Address: {{.walletaddress}}\n  Creator: {{.creator}}\n  {{.content}}",
+        "html": "The {{.walletcurrency}} Wallet {{.walletname}} was {{.result}}<div><br /><strong><u>Detail:</u></strong></div><ul>Address: {{.walletaddress}}</ul><ul>Creator: {{.creator}}</ul><ul>{{.content}}</ul>"
+    },
+    "template_16": {
+        "subject": "{{.date}} Log Report",
+        "text": "The system log report is ranged from {{.from}} to {{.to}}\n\nPlease refer to attached file for details information.",
+        "html": "The system log report is ranged from {{.from}} to {{.to}}</p><br>Please refer to attached file for details information."
+    },
+    "template_17": {
+        "subject": "{{.walletcurrency}} Wallet {{.walletname}} create transaction {{.result}}",
+        "text": "The {{.walletcurrency}} Wallet {{.walletname}} create transaction {{.result}}\n\nDetail:\n  From: {{.fromaddr}}\n  To: {{.toaddr}}\n  Amount: {{.amount}}\n  Fee: {{.fee}}\n  Issuer: {{.issuer}}\n  {{if .memo}}Memo: {{.memo}}\n{{end}}  {{if .description}}Note: {{.description}}\n{{end}}  {{if .txid}}TxId {{.txid}}\n  Link: {{.link}}\n{{end}}\n{{.content}}",
+        "html": "The {{.walletcurrency}} Wallet {{.walletname}} create transaction {{.result}}<div><br /><strong><u>Detail</u></strong></div><ul>From: {{.fromaddr}}</ul><ul>To: {{.toaddr}}</ul><ul>Amount: {{.amount}}</ul><ul>Fee: {{.fee}}</ul><ul>Issuer: {{.issuer}}</ul>{{if .memo}}<ul>Memo: {{.memo}}</ul>{{end}}{{if .description}}<ul>Note: {{.description}}</ul>{{end}}{{if .txid}}<ul>TxId: {{.txid}}</ul><ul>Link: {{.link}}</ul>{{end}}<br>{{.content}}"
+    },
+    "template_18": {
+        "subject": "{{.type}} wallet \"{{.wallet}}\" API code has been renewed",
+        "text": "{{.type}} wallet \"{{.wallet}}\" API code has been renewed.\n\nYou can get more details on the CYBAVO service website.",
+        "html": "{{.type}} wallet \"{{.wallet}}\" API code has been renewed.<br/><br/>You can get more details on the CYBAVO service website."
+    },
+    "template_19": {
+        "subject": "Wallet monitor of {{.type}} wallet \"{{.wallet}}\" failed",
+        "text": "Wallet monitor of {{.type}} wallet \"{{.wallet}}\" failed.\n\nYou can get more details on the CYBAVO service website.",
+        "html": "Wallet monitor of {{.type}} wallet \"{{.wallet}}\" failed<br/><br/>You can get more details on the CYBAVO service website."
+    },
+    "template_20": {
+        "subject": "{{.type}} wallet \"{{.wallet}}\" collection transaction is pending",
+        "text": "{{.type}} wallet \"{{.wallet}}\" is pending for over 12 hours.\n\nCheck the below order(s) on the CYBAVO service website:\n {{.orders}}",
+        "html": "{{.type}} wallet \"{{.wallet}}\" is pending for over 12 hours.<br/><br/>Check the below order(s) on the CYBAVO service website:<br/> {{.orders}}"
+    },
+    "template_21": {
+        "subject": "Withdraw wallet \"{{.wallet}}\" withdraw policy changed",
+        "text": "Withdraw wallet \"{{.wallet}}\" withdraw policy changed.\n\nDetails:\n\nDelay Time: {{.delay}}\nFee: {{.fee}}",
+        "html": "Withdraw wallet \"{{.wallet}}\" withdraw policy changed.<br><br>Details:<br><ul>Delay Time: {{.delay}}<br>Fee: {{.fee}}</ul>"
+    },
+    "template_22": {
+        "subject": "{{.type}} wallet \"{{.wallet}}\" {{.action}} failed",
+        "text": "{{.type}} wallet \"{{.wallet}}\" {{.action}} failed.\n\nCheck the below order(s) on the CYBAVO service website:\n {{.orders}}",
+        "html": "{{.type}} wallet \"{{.wallet}}\" {{.action}} failed.<br/><br/>Check the below order(s) on the CYBAVO service website:<br/>{{.orders}}"
+    },
+    "template_23": {
+        "subject": "Deposit wallet \"{{.wallet}}\" collect policy changed",
+        "text": "Deposit wallet \"{{.wallet}}\" collect policy changed.\n  Details:\n\n {{range $rule := $.rules}}Condition: {{$rule.condition}}\nFee: {{$rule.fee}}\nOutgoing Address: {{$rule.outgoing}}\nSchedule (UTC): {{$rule.schedule}}\n{{end}}",
+        "html": "Deposit wallet \"{{.wallet}}\" collect policy changed.<br />Details:<br />{{range $rule := $.rules}}<ul>Condition: {{$rule.condition}}<br>Fee: {{$rule.fee}}<br>Outgoing Address: {{$rule.outgoing}}<br>Schedule (UTC): {{$rule.schedule}}</ul>{{end}}"
+    },
+    "template_24": {
+        "subject": "The api token of wallet {{.wallet_name}} {{.expired_title}}",
+        "text": "Dear {{.user_name}}, \n\n The api token of wallet {{.wallet_name}} {{.expired_title}}. (Expired time:{{.expired_time}})\n\n.Please enter CYBAVO web to refresh the token and update to your server.",
+        "html": "Dear {{.user_name}},<br /><br />The api token of wallet {{.wallet_name}} {{.expired_title}}. (Expired time:{{.expired_time}}<br />Please enter CYBAVO web to refresh the token and update to your server."
+    },
+    "template_25": {
+        "subject": "Wallet {{.wallet_name}} Risk Control Alert",
+        "text": "The risk control level of wallet {{.wallet_name}} has reached {{.value}}%\n\nYou can get more details on the CYBAVO service website.",
+        "html": "The risk control level of wallet {{.wallet_name}} has reached {{.value}}%<br/><br/>You can get more details on the CYBAVO service website."
+    },
+    "template_26": {
+        "subject": "Wallet {{.wallet_name}}'s Balance Warning",
+        "text": "Wallet {{.wallet_name}}'s balance is too low to operate.\n\nPlease refill some fund for the user's withdrawal.\n\nYou can get more details on the CYBAVO service website.",
+        "html": "Wallet {{.wallet_name}}'s balance is too low to operate.<br/><br/>Please refill some fund for the user's withdrawal.<br/><br/>You can get more details on the CYBAVO service website."
+    },
+    "template_27": {
+        "subject": "{{.wallet_ticker_symtol}} wallet {{.wallet_name}}'s syncing block is falling behind",
+        "text": "{{.wallet_ticker_symtol}} wallet {{.wallet_name}}'s syncing block has {{.value}} blocks falling behind.\n\nPlease check the syncing status on your SOFA system and contact CYBAVO if there are any problems",
+        "html": "{{.wallet_ticker_symtol}} wallet {{.wallet_name}}'s syncing block has {{.value}} blocks falling behind.<br><br>Please check the syncing status on your SOFA system and contact CYBAVO if there are any problems"
+    },
+    "template_28": {
+        "subject": "Wallet {{.wallet_name}} collection report",
+        "text": "Dear {{.user_name}}\n\nYour deposit wallet {{.wallet_name}} was triggered the collection policy {{.policy_name}}, total {{.value}}  {{.currency}} was collected to the {{.outgoing_address_name}}:{{.outgoing_address}}\n\nYou can double confirm on your wallet.",
+        "html": "Dear {{.user_name}}<br><p>Your deposit wallet {{.wallet_name}} was triggered the collection policy {{.policy_name}}, total {{.value}} {{.currency}} was collected to the {{.outgoing_address_name}}:{{.outgoing_address}}</p><br><p>You can double confirm on your wallet.</p>"
+    },
+    "template_29": {
+        "subject": "Wallet {{.wallet_name}} withdrawal report",
+        "text": "Dear {{.user_name}}\n\nYour withdrawal wallet {{.wallet_name}} was triggered the withdrawal policy {{.policy_name}}, total {{.value}}  {{.currency}} was withdraw to the total {{.address_num}} addresses\n\nYou can double confirm on your wallet.",
+        "html": "Dear {{.user_name}}<br /><br />Your withdrawal wallet {{.wallet_name}} was triggered the withdrawal policy {{.policy_name}}, total {{.value}} {{.currency}} was withdraw to the total {{.address_num}} addresses<br><br>You can double confirm on your wallet."
+    },
+    "template_30": {
+        "subject": "Account has been enabled on CYBAVO VAULT",
+        "text": "Dear {{.target_user}},\n\n Your account has been enabled by {{.admin_user}} on CYBAVO VAULT.  \nPlease contact your administrator if you have any problems.",
+        "html": "Dear {{.target_user}},<br /><br /> Your account has been enabled by {{.admin_user}} on CYBAVO VAULT. <br />Please contact your administrator if you have any problems"
+    },
+    "template_32": {
+        "subject": "Security Alert [Unarchive Wallet]",
+        "text": "The {{.walletcurrency}} Wallet {{.walletname}} was {{.result}}\n\nDetail:\n  Address: {{.walletaddress}}\n  Creator: {{.creator}}\n  {{.content}}",
+        "html": "The {{.walletcurrency}} Wallet {{.walletname}} was {{.result}}<div><br /><strong><u>Detail:</u></strong></div><ul>Address: {{.walletaddress}}</ul><ul>Creator: {{.creator}}</ul><ul>{{.content}}</ul>"
+    },
+    "template_33": {
+        "subject": "{{.walletcurrency}} Wallet {{.walletname}} {{.behavior}} {{.result}}",
+        "text": "The {{.walletcurrency}} Wallet {{.walletname}} {{.behavior}} {{.result}}\n\nDetail:\n  From: {{.fromaddr}}\n  To: {{.toaddr}}\n  Amount: {{.amount}}\n  Fee: {{.fee}}\n  Issuer: {{.issuer}}\n  Memo {{.memo}}\n\n{{.content}}",
+        "html": "The {{.walletcurrency}} Wallet {{.walletname}} {{.behavior}} {{.result}}<div><br /><strong><u>Detail</u></strong></div><ul>From: {{.fromaddr}}</ul><ul>To: {{.toaddr}}</ul><ul>Amount: {{.amount}}</ul><ul>Fee: {{.fee}}</ul><ul>Memo: {{.memo}}</ul><ul>Issuer: {{.issuer}}</ul>{{.content}}"
+    },
+    "template_34": {
+        "subject": "{{.walletcurrency}} Wallet {{.walletname}} create transaction {{.result}}",
+        "text": "The {{.walletcurrency}} Wallet {{.walletname}} create transaction {{.result}}\n\nDetail:\n  From: {{.fromaddr}}\n  To: {{.toaddr}}\n  Send Amount: {{.amount}}\n  Estimated Recv Amount: {{.realamount}}\n  Blockchain Fee: {{.fee}}\n  Platform Fee: {{.pfee}}\n   Issuer: {{.issuer}}\n  Memo {{.memo}}\n  Note: {{.description}}\n  TxId: {{.txid}}\n  Link: {{.link}}\n\n{{.content}}",
+        "html": "The {{.walletcurrency}} Wallet {{.walletname}} create transaction {{.result}}<div><br /><strong><u>Detail</u></strong></div><ul>From: {{.fromaddr}}</ul><ul>To: {{.toaddr}}</ul><ul>Send Amount: {{.amount}}</ul><ul>Estimated Recv Amount: {{.realamount}}</ul><ul>Blockchain Fee: {{.fee}}</ul><ul>Platform Fee: {{.pfee}}</ul><ul>Issuer: {{.issuer}}</ul><ul>Memo: {{.memo}}</ul><ul>Note: {{.description}}</ul><ul>TxId: {{.txid}}</ul><ul>Link: {{.link}}</ul>{{.content}}"
+    },
+    "template_35": {
+        "subject": "Forgot Password Mail - {{.user_name}}",
+        "text": "Dear {{.user_name}},\n\n  Please click the link below to change password for your account:\n {{.link}}\nThe link will be expired in 30 minutes",
+        "html": "Dear {{.user_name}},<br /><br /> Please click the link below to change password for your account:<br /><ul>{{.link}}</ul><br /><br />The link will be expired in 30 minutes"
+    },
+    "template_36": {
+        "subject": "Verify Mail - {{.behavior}}",
+        "text": "Dear {{.user_name}},\n\n You requested to {{.behavior}} on website, please enter the following code for verification.\n\n{{.digitalnum}}\n\nPlease ignore this mail if you did not do that.",
+        "html": "Dear {{.user_name}},<br /><br />You requested to {{.behavior}} on website, please enter the following code for verification.<br /><ul>{{.digitalnum}}</ul>Please ignore this mail if you did not do that."
+    },
+    "template_39": {
+        "subject": "Security alert [Re-paired Device]",
+        "text": "Dear {{.user_name}},\n\nYour account has been paired with the following device:\n{{.device}}.\n\nIf you did not pair your account with this device, we recommend changing your password and contacting support@cybavo.com immediately.\n\nThank you",
+        "html": "Dear {{.user_name}},<div><br />Your account has been paired with the following device:<br/>{{.device}}.</div><br /><br />If you did not pair your account with this device, we recommend changing your password and contacting support@cybavo.com immediately.<br /><br />Thank you"
+    },
+    "template_40": {
+        "subject": "Create {{.walletcurrency}} wallet {{.walletname}} {{.result}}, mapped to wallet {{.mappedwalletname}}",
+        "text": "The {{.walletcurrency}} Wallet {{.walletname}} create {{.result}}\n\nDetail:\n  Address: {{.walletaddress}}\n  Creator: {{.creator}}\n  Mapped to Wallet: {{.mappedwalletname}}\n{{.content}}",
+        "html": "The {{.walletcurrency}} Wallet {{.walletname}} create {{.result}}<div><br /><strong><u>Detail:</u></strong></div><ul>Address: {{.walletaddress}}</ul><ul>Creator: {{.creator}}</ul><ul>Mapped to Wallet: {{.mappedwalletname}}</ul><ul>{{.content}}</ul>"
+    },
+    "template_41": {
+        "subject": "Activate Mail - {{.user_name}}",
+        "text": "Dear {{.user_name}},\n\n  Your account has just been created.\n  Please click the link below to activate your account:\n\n {{.link}}",
+        "html": "Dear {{.user_name}},<br /><br />Your accout has just been created.<br />Please click the link below to activate your account:<br /><ul>{{.link}}</ul>"
+    },
+    "template_42": {
+        "subject": "{{.type}} wallet \"{{.wallet}}\" send transaction is pending",
+        "text": "{{.type}} wallet \"{{.wallet}}\" is pending for over 12 hours.\n\nCheck the below order(s) on the CYBAVO service website:\n {{.orders}}",
+        "html": "{{.type}} wallet \"{{.wallet}}\" is pending for over 12 hours.<br/><br/>Check the below order(s) on the CYBAVO service website:<br/> {{.orders}}"
+    },
+    "template_43": {
+        "subject": "Guest login - {{.user_name}}",
+        "text": "Dear {{.user_name}},\n\n  Please click the link below to login to your account:\n {{.link}}\nThe link will be expired in {{.duration}} minutes",
+        "html": "Dear {{.user_name}},<br /><br /> Please click the link below to login to your account:<br /><ul>{{.link}}</ul><br /><br />The link will be expired in {{.duration}} minutes"
+    },
+    "template_44": {
+        "subject": "Wallet {{.wallet_name}}'s Pool Balance Warning",
+        "text": "Wallet {{.wallet_name}}'s pool balance is too low to operate.\n\nPlease refill some fund for balance collection.\n\nYou can get more details on the CYBAVO service website.",
+        "html": "Wallet {{.wallet_name}}'s pool balance is too low to operate.<br/><br/>Please refill some fund for balance collection.<br/><br/>You can get more details on the CYBAVO service website."
+    },
+    "template_45": {
+        "subject": "{{.type}} wallet \"{{.wallet}}\" transaction has been dropped",
+        "text": "{{.type}} Wallet {{.wallet}} transaction has been dropped.\n\nCheck the below order(s) on the CYBAVO service website:\n {{.orders}}",
+        "html": "{{.type}} Wallet {{.wallet}} transaction has been dropped.<br/><br/>Check the below order(s) on the CYBAVO service website:<br/> {{.orders}}"
+    },
+    "template_46": {
+        "subject": "Unlock Policy Cold Time - Your Verification Code",
+        "text": "Dear {{.user_name}},\n\nYou requested to unlock the 72 hours cold time on a wallet policy change.\nPlease use the following verification code\n\n{{.digitalnum}}\n\nIf you did not request this unlock, we recommend changing your password and contacting support@cybavo.com immediately.\n\nThank you",
+        "html": "Dear {{.user_name}},<br /><br />You requested to unlock the 72 hours cold time on a wallet policy change.<br /><ul>{{.digitalnum}}</ul>If you did not request this unlock, we recommend changing your password and contacting support@cybavo.com immediately.<br /><br />Thank you"
+    },
+    "template_47": {
+        "subject": "Security Notification [Paired Device]",
+        "text": "Dear {{.user_name}},\n\nYour account has been paired with the following device:\n{{.device}}.\n\nIf you did not pair your account with this device, we recommend changing your password and contacting support@cybavo.com immediately.\n\nThank you",
+        "html": "Dear {{.user_name}},<div><br />Your account has been paired with the following device:<br/>{{.device}}.</div><br /><br />If you did not pair your account with this device, we recommend changing your password and contacting support@cybavo.com immediately.<br /><br />Thank you"
+    }
+}
