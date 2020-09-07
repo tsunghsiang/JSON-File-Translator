@@ -27,14 +27,21 @@ function ReadJsonFile(fileHandler, filePath) {
     }
 
     try {
-        const jsonDara = fs.readFileSync(filePath);
-        const jsonArr = JSON.parse(String(jsonDara));
+        const jsonData = fs.readFileSync(filePath);
+        const jsonArr = JSON.parse(String(jsonData));
         return jsonArr;
         //console.log(jsonArr);
     } catch(err) {
         console.log(`[ReadJsonFile][ERROR] Read FIle Failure: ${err}`);
         return;
     }
+}
+
+function WriteJsonFile(fileHandler, filePath, jsonData) {
+    fileHandler.writeFile(filePath, jsonData, err => {
+        if(err)
+            console.error(`[WriteJsonFile][ERROR] ${err}`);
+    });
 }
 
 function DispJsonArr(jsonData) {
@@ -47,7 +54,7 @@ function DispJsonArr(jsonData) {
         console.log(`key: ${key}, value: ${jsonData[key]}`);
 }
 
-function TranslateTerms(fetchCmd, baseJsonArr, compJsonArr, url, language){
+function TranslateTerms(fileHandler, fetchCmd, baseJsonArr, compJsonArr, url, language, outputFile){
     if(!baseJsonArr){
         console.error(`[TranslateTerms][ERROR] Undefined baseJsonArr`);
         process.exit();       
@@ -64,37 +71,77 @@ function TranslateTerms(fetchCmd, baseJsonArr, compJsonArr, url, language){
     }
 
     var outputArr = {};
-    // var lenght = Object.keys(baseJsonArr).length;
+    var undefinedTerms = [];
+    var count = 0;
     for(var key in baseJsonArr){
         if(compJsonArr[key] !== undefined){
             outputArr[key] = compJsonArr[key];
         }else{
-            var uri = `${url}client=gtx&dt=t&dj=1&ie=UTF-8&sl=en&tl=${language}&q=${baseJsonArr[key]}`;
-            console.log(`URI: ${uri}`);
+            outputArr[key] = "";
+            undefinedTerms.push({"idx": count, "key": key});
+            count++;
+        }
+    }
+
+    if(undefinedTerms.length == 0){
+        WriteJsonFile(fileHandler, outputFile, JSON.stringify(outputArr, null, 2));
+        return;
+    }
+
+    // Translate the undefined terms here
+    var idx = 0;
+    var length = undefinedTerms.length;
+    (function TranslatePromise(fetchCmd, url, srcLang, targetLang, term){
+        setTimeout(() => {
+            // console.log(baseJsonArr[term.key]);
+            var uri = `${url}client=gtx&dt=t&dj=1&ie=UTF-8&sl=en&tl=${language}&q=${baseJsonArr[term.key]}`;
+            // console.log(uri);
+
             try{
                 fetchCmd(uri, { method: "GET",
                                 headers: { "Content-Type": "application/json; charset=utf-8" },
                                 redirect: "follow",
                                 referrer: "no-referrer" })
-                .then(rsp => rsp.json())
-                .then(data => console.log(data.text()));
-                break;
-            }catch(err){
-                console.error(`[TranslateTerms][ERROR] Translate Error: ${err}`);
+                .then(rsp => {
+                    if(!rsp.ok)
+                        throw 'fetch error';
+                    else
+                        rsp.json();
+                })
+                .then(data => { 
+                    outputArr[term.key] = data.sentences[0].trans; 
+                    console.log(outputArr[term.key]); 
+                });
+            }catch(err){}
+  
+            // Halt asynchronous operation if whole undefined terms have been translated
+            idx++;
+            if(idx == length){
+                clearTimeout();
+                WriteJsonFile(fileHandler, outputFile, JSON.stringify(outputArr, null, 2));
+                return;
             }
-        }
-    }
-
-    return outputArr;
+            else {
+                TranslatePromise(fetchCmd, url, 'en', targetLang, undefinedTerms.find(elem => {
+                    if(elem.idx == idx)
+                        return elem;         
+                }));
+            }
+        }, 100);
+    })(fetchCmd, url, 'en', language, undefinedTerms.find(elem => { 
+        if(elem.idx == idx)
+            return elem; 
+    }));
 }
 
 const fetch = require("node-fetch");
 const fs = require("fs");
+const path = require('path');
 
 const TARGET_LANG = process.argv[2];
-const BASE_FILE = `input/i18n/2fa/${process.argv[3]}`;
-const COMP_FILE = `input/i18n/2fa/${TARGET_LANG}.json`;
-const OUTPUT_FLIE = `output/i18n/2fa/${TARGET_LANG}.json`;
+const BASE_FILE = `${process.argv[3]}`;
+const COMP_FILE = `${process.argv[4]}`;
+const OUTPUT_FLIE = COMP_FILE.replace('input', 'output');
 const URL = "http://translate.google.cn/translate_a/single?";
 
 // Display Program Information
@@ -105,4 +152,4 @@ console.log(`Output File: ${OUTPUT_FLIE}`);
 
 var baseJsonArr = ReadJsonFile(fs, BASE_FILE);
 var compJsonArr = ReadJsonFile(fs, COMP_FILE);
-var outputArr = TranslateTerms(fetch, baseJsonArr, compJsonArr, URL, TARGET_LANG);
+TranslateTerms(fs, fetch, baseJsonArr, compJsonArr, URL, TARGET_LANG, OUTPUT_FLIE);
