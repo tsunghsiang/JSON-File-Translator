@@ -97,27 +97,29 @@ function TranslateKeys(fileHandler, fetchCmd, flatCmd, unflatCmd, baseJsonArr, c
     // Translate the undefined terms here
     var idx = 0;
     var length = undefinedTerms.length;
-    (function TranslatePromise(fetchCmd, url, srcLang, targetLang, term){
+    (async function TranslatePromise(fetchCmd, url, srcLang, targetLang, term){
         setTimeout(() => {
             var uri = `${url}client=gtx&dt=t&dj=1&ie=UTF-8&sl=en&tl=${language}&q=${flattenedBaseJsonArr[term.key]}`;
             console.log(`key: ${term.key}, uri: ${uri}`);
 
-            try{
-                fetchCmd(uri, { method: "GET",
-                                headers: { "Content-Type": "application/json; charset=utf-8" },
-                                redirect: "follow",
-                                referrer: "no-referrer" })
-                .then(rsp => {
-                    if(!rsp.ok)
-                        throw 'fetch error';
-                    else
-                        return rsp.json();
-                })
-                .then(data => {
-                    outputArr[term.key] = data.sentences[0].trans; 
-                    // console.log(outputArr[term.key]);
-                });
-            }catch(err){}
+            fetchCmd(uri, { method: "GET",
+                            headers: { "Content-Type": "application/json; charset=utf-8" },
+                            redirect: "follow",
+                            referrer: "no-referrer" })
+            .then(rsp => {
+                if(!rsp.ok)
+                    throw 'fetch error';
+                else
+                    return rsp.json();
+            })
+            .then(data => {
+                outputArr[term.key] = data.sentences[0].trans; 
+                // console.log(outputArr[term.key]);
+            })
+            .catch(err => {
+                console.error(`${err}`);
+                process.exit();
+            });
 
             // Halt asynchronous operation if whole undefined terms have been translated
             idx++;
