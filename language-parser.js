@@ -11,7 +11,7 @@
 // Command: node -r esm -r fs -r node-fetch -r flat language-parser.js {target language} {input base file} {input comparison file}
 
 // Load external files
-import { ReadJsonFile, WriteJsonFile, DispJsonArr, TranslateKeys } from './helper.js';
+import { ReadJsonFile, WriteJsonFile, DispJsonArr, GetRandomIntInclusive, TranslateKeys } from './helper.js';
 
 const fetch = require("node-fetch");
 const fs = require("fs");

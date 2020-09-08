@@ -54,6 +54,12 @@ function DispJsonArr(jsonData) {
         console.log(`key: ${key}, value: ${jsonData[key]}`);
 }
 
+function GetRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive 
+  }
+
 function TranslateKeys(fileHandler, fetchCmd, flatCmd, unflatCmd, baseJsonArr, compJsonArr, url, language, outputFile){
     if(!baseJsonArr){
         console.error(`[TranslateTerms][ERROR] Undefined baseJsonArr`);
@@ -98,6 +104,9 @@ function TranslateKeys(fileHandler, fetchCmd, flatCmd, unflatCmd, baseJsonArr, c
     var idx = 0;
     var length = undefinedTerms.length;
     (async function TranslatePromise(fetchCmd, url, srcLang, targetLang, term){
+
+        var delay = GetRandomIntInclusive(10, 20) * 1000; //ms
+
         setTimeout(() => {
             var uri = `${url}client=gtx&dt=t&dj=1&ie=UTF-8&sl=en&tl=${language}&q=${flattenedBaseJsonArr[term.key]}`;
             console.log(`key: ${term.key}, uri: ${uri}`);
@@ -107,8 +116,11 @@ function TranslateKeys(fileHandler, fetchCmd, flatCmd, unflatCmd, baseJsonArr, c
                             redirect: "follow",
                             referrer: "no-referrer" })
             .then(rsp => {
-                if(!rsp.ok)
+                if(!rsp.ok){
+                    outputArr = unflatCmd(outputArr, { object: true });
+                    WriteJsonFile(fileHandler, outputFile, JSON.stringify(outputArr, null, 2));
                     throw 'fetch error';
+                }
                 else
                     return rsp.json();
             })
@@ -135,7 +147,7 @@ function TranslateKeys(fileHandler, fetchCmd, flatCmd, unflatCmd, baseJsonArr, c
                         return elem;         
                 }));
             }
-        }, 2000);
+        }, delay);
     })(fetchCmd, url, 'en', language, undefinedTerms.find(elem => { 
         if(elem.idx == idx)
             return elem; 
@@ -143,4 +155,4 @@ function TranslateKeys(fileHandler, fetchCmd, flatCmd, unflatCmd, baseJsonArr, c
 }
 
 // Exporting variables and functions
-export { ReadJsonFile, WriteJsonFile, DispJsonArr, TranslateKeys };
+export { ReadJsonFile, WriteJsonFile, DispJsonArr, GetRandomIntInclusive, TranslateKeys };
