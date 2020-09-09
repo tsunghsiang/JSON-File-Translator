@@ -105,7 +105,7 @@ function TranslateKeys(fileHandler, fetchCmd, flatCmd, unflatCmd, baseJsonArr, c
     var length = undefinedTerms.length;
     (async function TranslatePromise(fetchCmd, url, srcLang, targetLang, term){
 
-        var delay = GetRandomIntInclusive(10, 20) * 1000; //ms
+        var delay = GetRandomIntInclusive(5, 10) * 1000; //ms
 
         setTimeout(() => {
             var uri = `${url}client=gtx&dt=t&dj=1&ie=UTF-8&sl=en&tl=${language}&q=${flattenedBaseJsonArr[term.key]}`;
