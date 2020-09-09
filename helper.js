@@ -103,13 +103,32 @@ function TranslateKeys(fileHandler, fetchCmd, flatCmd, unflatCmd, baseJsonArr, c
     // Translate the undefined terms here
     var idx = 0;
     var length = undefinedTerms.length;
+    const regex = /\{{[^}}]+}\}/g;
+    const spearator = String.fromCodePoint(44, 65292, 12289);
     (async function TranslatePromise(fetchCmd, url, srcLang, targetLang, term){
 
         var delay = GetRandomIntInclusive(5, 10) * 1000; //ms
 
+        // String Processing Here: 
+        // [1] split texts with specified regular expression
+        var splits = flattenedBaseJsonArr[term.key].split(regex);
+        
+        // [2] Join texts to be translated with commas, '|'
+        
+        var joinedSplits = splits.map(elem => elem.replace(/\n/g, '<br>'))      // '`'
+                                 .map(elem => elem.replace(' ', '%20'))         // ' '
+                                 .join('%7e%7e');                               // '~~'
+        // console.log(joinedSplits);
+
+        // [3] Store tokens in an array, which is later append to the translated texts
+        var tokens = [];
+        var token;
+        while((token = regex.exec(flattenedBaseJsonArr[term.key])) != null)
+            tokens.push(token[0]);
+  
         setTimeout(() => {
-            var uri = `${url}client=gtx&dt=t&dj=1&ie=UTF-8&sl=en&tl=${language}&q=${flattenedBaseJsonArr[term.key]}`;
-            console.log(`key: ${term.key}, uri: ${uri}`);
+            var uri = `${url}client=gtx&dt=t&dj=1&ie=UTF-8&sl=en&tl=${language}&q=${joinedSplits}`;
+            console.log(`initial uri: ${uri}`);
 
             fetchCmd(uri, { method: "GET",
                             headers: { "Content-Type": "application/json; charset=utf-8" },
@@ -125,10 +144,17 @@ function TranslateKeys(fileHandler, fetchCmd, flatCmd, unflatCmd, baseJsonArr, c
                     return rsp.json();
             })
             .then(data => {
-                outputArr[term.key] = data.sentences[0].trans; 
-                // console.log(outputArr[term.key]);
-            })
-            .catch(err => {
+                // console.log(`initial trans: ${data.sentences[0].trans}`);
+                
+                var translatedTexts = data.sentences[0].trans.replace(/<br>/g, '\n').split('~~');
+                var text = translatedTexts[0];
+                // console.log(translatedTexts);
+                for(var i = 0; i < tokens.length; i++)
+                   text = text.concat(tokens[i]).concat(translatedTexts[i+1]? translatedTexts[i+1] : '');
+                outputArr[term.key] = text;
+                console.log(`translated text: ${text}`);
+                
+            }).catch(err => {
                 console.error(`${err}`);
                 process.exit();
             });

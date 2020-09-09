@@ -3,11 +3,20 @@
 # Learn more about .gitignore:
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
+# Google API key JSON file
+translation.json
+
+# input
+innput/*
+
+# output
+output/*
+
 # Google Cloud SDK
-google-cloud-sdk/
+google-cloud-sdk/*
 
 # test sources
-test/
+test/*
 
 # Node artifact files
 node_modules/
