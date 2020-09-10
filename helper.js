@@ -58,7 +58,7 @@ function GetRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive 
-  }
+}
 
 function TranslateKeys(fileHandler, fetchCmd, flatCmd, unflatCmd, baseJsonArr, compJsonArr, url, language, outputFile){
     if(!baseJsonArr){
@@ -103,8 +103,7 @@ function TranslateKeys(fileHandler, fetchCmd, flatCmd, unflatCmd, baseJsonArr, c
     // Translate the undefined terms here
     var idx = 0;
     var length = undefinedTerms.length;
-    const regex = /\{{[^}}]+}\}/g;
-    const spearator = String.fromCodePoint(44, 65292, 12289);
+    const regex = /\{{[^}]+}\}/g;
     (async function TranslatePromise(fetchCmd, url, srcLang, targetLang, term){
 
         var delay = GetRandomIntInclusive(5, 10) * 1000; //ms
@@ -113,8 +112,7 @@ function TranslateKeys(fileHandler, fetchCmd, flatCmd, unflatCmd, baseJsonArr, c
         // [1] split texts with specified regular expression
         var splits = flattenedBaseJsonArr[term.key].split(regex);
         
-        // [2] Join texts to be translated with commas, '|'
-        
+        // [2] Join texts to be translated with commas, '~~'
         var joinedSplits = splits.map(elem => elem.replace(/\n/g, '<br>'))      // '`'
                                  .map(elem => elem.replace(' ', '%20'))         // ' '
                                  .join('%7e%7e');                               // '~~'
