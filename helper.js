@@ -103,7 +103,7 @@ function TranslateKeys(fileHandler, fetchCmd, flatCmd, unflatCmd, baseJsonArr, c
     // Translate the undefined terms here
     var idx = 0;
     var length = undefinedTerms.length;
-    const regex = /\{{[^}]+}\}/g;
+    const regex = /\{.*?\}/g;
     (async function TranslatePromise(fetchCmd, url, srcLang, targetLang, term){
 
         var delay = GetRandomIntInclusive(5, 10) * 1000; //ms
@@ -113,9 +113,9 @@ function TranslateKeys(fileHandler, fetchCmd, flatCmd, unflatCmd, baseJsonArr, c
         var splits = flattenedBaseJsonArr[term.key].split(regex);
         
         // [2] Join texts to be translated with commas, '~~'
-        var joinedSplits = splits.map(elem => elem.replace(/\n/g, '<br>'))      // '`'
-                                 .map(elem => elem.replace(' ', '%20'))         // ' '
-                                 .join('%7e%7e');                               // '~~'
+        var joinedSplits = splits.map(elem => elem.replace(/\n/g, '<br>')   // '`'
+                                                  .replace(' ', '%20'))     // ' '
+                                 .join('%7e%7e');                           // '~~'
         // console.log(joinedSplits);
 
         // [3] Store tokens in an array, which is later append to the translated texts
@@ -150,7 +150,7 @@ function TranslateKeys(fileHandler, fetchCmd, flatCmd, unflatCmd, baseJsonArr, c
                 for(var i = 0; i < tokens.length; i++)
                    text = text.concat(tokens[i]).concat(translatedTexts[i+1]? translatedTexts[i+1] : '');
                 outputArr[term.key] = text;
-                console.log(`translated text: ${text}`);
+                //console.log(`translated text: ${text}`);
                 
             }).catch(err => {
                 console.error(`${err}`);

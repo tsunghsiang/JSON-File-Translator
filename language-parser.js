@@ -1,12 +1,12 @@
 // Notice: 
-// 1. Upgrade node.js version >=  (ref: https://phoenixnap.com/kb/update-node-js-version)
+// 1. Upgrade node.js version >= 6 (ref: https://phoenixnap.com/kb/update-node-js-version)
 // 2. To run the application, remember to install libraries 'fs', 'node-fetch', 'esm' and 'flat'
 //      npm install fs
 //      npm install fetch (ref: https://www.npmjs.com/package/fetch)
 //      npm install esm (ref: https://github.com/standard-things/esm)
 //      npm install flat (ref: https://github.com/hughsk/flat)
 // 3. To avoid being mistaken as DDoS attacks by Google server, fetch API delay is configured to be 
-//    2000 ms by default. Smaller value might lead to unhandled exceptions
+//    a random number between 5000 and 10000 (ms) by default. Smaller value might lead to unhandled exceptions
 
 // Command: node -r esm -r fs -r node-fetch -r flat language-parser.js {target language} {input base file} {input comparison file}
 
