@@ -95,7 +95,7 @@ function TranslateKeys(fileHandler, fetchCmd, flatCmd, unflatCmd, baseJsonArr, c
 
     if(undefinedTerms.length == 0){
         outputArr = unflatCmd(outputArr, { object: true });
-        console.log(outputArr);
+        // console.log(outputArr);
         WriteJsonFile(fileHandler, outputFile, JSON.stringify(outputArr, null, 2));
         return;
     }

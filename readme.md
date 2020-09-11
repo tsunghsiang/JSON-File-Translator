@@ -15,22 +15,22 @@ To run the application, some modules is required for I/O, http requests, module 
 
 The tool is going to manipulate file I/O. Therefore module **[fs](https://www.npmjs.com/package/fs)** is needed.
 ```sh
-$ sudo npm install fs
+$ sudo npm install --save fs
 ```
 
 Differently from traditional **[XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)**, **[fetch](https://www.npmjs.com/package/fetch)** module provides us a more efficient way of sending HTTP requests to remote server; handle asynchronous operations in a sequential way. Learn it more from the **[link](https://developers.google.com/web/updates/2015/03/introduction-to-fetch)**.
 ```sh
-$ sudo npm install fetch
+$ sudo npm install --save fetch
 ```
 
 To load external scripts, **[esm](https://github.com/standard-things/esm)** supports EMCAScript module loading. The fast, production ready, zero dependency loader is all you need to support ECMAScript modules in Node 6+.
 ```sh
-$ sudo npm install esm
+$ sudo npm install --save esm
 ```
 
 To resolve JSON files in forms of multi-level keys, we apples 3rd-party package **[flat](https://github.com/hughsk/flat)** to realize the folding technique, which simplifies parsing complexity.
 ```sh
-$ sudo npm install flat
+$ sudo npm install --save flat
 ```
 
 # Feature
