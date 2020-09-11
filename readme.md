@@ -112,13 +112,10 @@ As mentioned, the tool send HTTP requests to remote Google server for translatio
 ```javascript
 var delay = GetRandomIntInclusive(5, 10) * 1000; //ms
 ```
-#### [2] Translated Typo Correctness
-Not all texts could be translated well as we want. Sometimes you could find that some translated texts are empty strings. (This rarely occurs but sometimes). 
+#### [2] Fullwidth Typo
+Not all texts could be translated well as we want. Some texts might be translated into **fullwidth** words based on type of target language, which make the presentation kind of weired. Check futher after program terminates.
 ```JSON
 {
-    "location": ""
+    "link": "URL（例：https：// urlまたはhttp：// url）"
 }
 ```
-Try translate the texts manually because the amount of un-translated texts is small.
-
-In addition, some texts might be translated into **fullwidth** words based on type of target language, which make the presentation kind of weired. Check futher after program terminates.

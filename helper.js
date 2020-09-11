@@ -151,26 +151,25 @@ function TranslateKeys(fileHandler, fetchCmd, flatCmd, unflatCmd, baseJsonArr, c
                    text = text.concat(tokens[i]).concat(translatedTexts[i+1]? translatedTexts[i+1] : '');
                 outputArr[term.key] = text;
                 //console.log(`translated text: ${text}`);
-                
-            }).catch(err => {
-                console.error(`${err}`);
-                process.exit();
-            });
 
-            // Halt asynchronous operation if whole undefined terms have been translated
-            idx++;
-            if(idx == length){
-                clearTimeout();
-                outputArr = unflatCmd(outputArr, { object: true });
-                WriteJsonFile(fileHandler, outputFile, JSON.stringify(outputArr, null, 2));
-                return;
-            }
+                // Halt asynchronous operation if whole undefined terms have been translated
+                idx++;
+                if(idx == length){
+                    outputArr = unflatCmd(outputArr, { object: true });
+                    WriteJsonFile(fileHandler, outputFile, JSON.stringify(outputArr, null, 2));
+                    return;
+                }
             else {
                 TranslatePromise(fetchCmd, url, 'en', targetLang, undefinedTerms.find(elem => {
                     if(elem.idx == idx)
                         return elem;         
                 }));
             }
+
+            }).catch(err => {
+                console.error(`${err}`);
+                process.exit();
+            });
         }, delay);
     })(fetchCmd, url, 'en', language, undefinedTerms.find(elem => { 
         if(elem.idx == idx)
