@@ -115,7 +115,9 @@ var delay = GetRandomIntInclusive(5, 10) * 1000; //ms
 #### [2] Translated Typo Correctness
 Not all texts could be translated well as we want. Sometimes you could find that some translated texts are empty strings. (This rarely occurs but sometimes). 
 ```JSON
-"location": ""
+{
+    "location": ""
+}
 ```
 Try translate the texts manually because the amount of un-translated texts is small.
 
