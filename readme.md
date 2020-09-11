@@ -37,11 +37,13 @@ $ sudo npm install flat
 #### [1] Free Google Translation API
 To support mass translation without both payments and authentication, we use a free online Google API as below.
 
-<code>GET</code><code>Url: http://translate.google.cn/translate_a/single</code>
+Method: GET
+Url: http://translate.google.cn/translate_a/single</code>
 
 | Parameters | client  | dt | dj | ie | sl | tl | q |
-|-----------------|:-------------|:---------------:|---------------:|
+|:-----------------|:-------------:|:---------------:|:---------------:|:---------------:|:---------------:|:---------------:|:---------------:|
 | Description | gtx | t | 1 | UTF-8 | souce language | target language | texts, separated by commas |
+
 
 For given GET parameters, fields **client**, **dt**, **dj**, **ie** are default. Users only need to adjust [source/target language](https://cloud.google.com/translate/docs/languages) and texts. Moreover, texts are separated by commas(,).
 
@@ -106,7 +108,7 @@ $ node -r esm -r fs -r node-fetch -r flat language-parser.js {target language} {
 # Notice
 Although most translation issue is resolved in the tool, inclusive of multi-level parsing and translation API, there are still some issues users need to be aware of since it might affect your final execution result.
 #### [1] Network Problem
-As mentioned, the tool send HTTP requests to remote Google server for translation. It might interrupt your requests if you send too much requests in a short time period. Therefore in the source code each translation request would delay a random duration between 5 and 10 seconds to avoid being mistaken as malicious attacks.
+As mentioned, the tool send HTTP requests to remote Google server for translation. It might interrupt your requests if you send too many requests in a short period of time. Therefore in the source code each translation request would delay a random duration between 5 and 10 seconds to avoid being mistaken as malicious attacks.
 ```javascript
 var delay = GetRandomIntInclusive(5, 10) * 1000; //ms
 ```
