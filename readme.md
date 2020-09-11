@@ -37,8 +37,7 @@ $ sudo npm install flat
 #### [1] Free Google Translation API
 To support mass translation without both payments and authentication, we use a free online Google API as below.
 
-Method: GET
-Url: http://translate.google.cn/translate_a/single</code>
+<code>GET</code><code>Url: http://translate.google.cn/translate_a/single</code>
 
 | Parameters | client  | dt | dj | ie | sl | tl | q |
 |:-----------------|:-------------:|:---------------:|:---------------:|:---------------:|:---------------:|:---------------:|:---------------:|
