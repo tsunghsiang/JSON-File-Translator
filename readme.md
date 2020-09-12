@@ -60,31 +60,31 @@ For some developers, they might define JSON files to represent use scenarios bas
 Take the snippet below as an instance to indicate the power of folding and unfolding.
 ```json
 {
-	"A": {
-		"B": {
-			"C": {
-				"D": "final"
-			}
-		}
-	}
+    "A": {
+        "B": {
+            "C": {
+                "D": "final"
+            }
+        }
+    }
 }
 ```
 If you are goiing to translate the JSON data, you need to know all the keys in order to access the final value. However, it is nearly possible since massive JSON file would contain tens of thousands of fields, not to mention the nested structure. The tool would process files by **folding** the JSON data as below, which converges to a single key-value pair and thus mitigate the pairing complexity.
 ```json
 {
-	"A.B.C.D": "final"
+    "A.B.C.D": "final"
 }
 ```
 After translation task is done, the application would **unfold** the result into its original form with translated texts. For example, if the sample above takes **en** as the source language and **zh-TW** as the target language. The JSON form after translation and unfolding would be
 ```json
 {
-	"A": {
-		"B": {
-			"C": {
-				"D": "最後"
-			}
-		}
-	}
+    "A": {
+        "B": {
+            "C": {
+                "D": "最後"
+            }
+        }
+    }
 }
 ```
 
