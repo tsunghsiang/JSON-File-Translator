@@ -1,20 +1,8 @@
-// The script takes the responsibility of translating JSON files of terms from English to other language versions
-// Now we are going to translate JSON files based on English version (en.json) of corresponding directories since
-// it has been completely documented. Therefore the corresponding translated json files would be put into the 
-// output directory.
-
-// The translation rules as below:
-// 1. Do not revise existing terms if identical keys exist in both English & another language version (Korean, Japanese, Simple Chinese, Traditional Chinese
-//    ex: "greetings": "How are you?" (English)
-//        "greetings": "你好嗎？" (Traditional Chinese)
-// 2. Add new terms to another language json file if there are not correspondinng terms in English json file.
-//    ex: "greetings": "How are you?" (English)
-//        (Not exist) (Traditional Chinese) <- Add this term and translated text to the file
-// 3. For terms containing special symbols  ex: {..} <..> =.+_)(*&^%$#@!|:"?><~"), keep them static as usual; 
-//    translate other parts of the sentence
-//    Ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
-// 4. Free Translation Platform: https://www.itread01.com/content/1554462245.html
-
+/**
+ * Read a JSON file from a specified file path
+ * @param {*} fileHandler - I/O manipulator
+ * @param {string} filePath - input file path 
+ */
 function ReadJsonFile(fileHandler, filePath) {
     if (!fileHandler) {
         console.error(`[ReadJsonFile][ERROR] Undefined File Handler`);
@@ -37,6 +25,12 @@ function ReadJsonFile(fileHandler, filePath) {
     }
 }
 
+/**
+ * Write a JSON structure to specified file path
+ * @param {module} fileHandler - I/O manipulator 
+ * @param {string} filePath - output file path
+ * @param {JSON} jsonData - JSON data structure 
+ */
 function WriteJsonFile(fileHandler, filePath, jsonData) {
     fileHandler.writeFile(filePath, jsonData, err => {
         if (err)
@@ -44,6 +38,10 @@ function WriteJsonFile(fileHandler, filePath, jsonData) {
     });
 }
 
+/**
+ * Print contents of a JSON structure
+ * @param {JSON} jsonData - parsed JSON data
+ */
 function DispJsonArr(jsonData) {
     if (!jsonData) {
         console.error(`[DispJsonArr][ERROR] Undefined Input`);
@@ -54,48 +52,93 @@ function DispJsonArr(jsonData) {
         console.log(`key: ${key}, value: ${jsonData[key]}`);
 }
 
+/**
+ * Generate a random integer value between min & max
+ * @param {Number} min - minimum integer value
+ * @param {Number} max - maximum integer value
+ */
 function GetRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive 
 }
 
-function toDBC(str) {
+/**
+ * Transform characters of halfwidth to characteres of fullwidth
+ * @param {string} str - halfwidth string
+ */
+function ToDBC(str) {
     var result = "";
     var len = str.length;
     for (var i = 0; i < len; i++) {
         var cCode = str.charCodeAt(i);
-        //全形與半形相差（除空格外）：65248(十進位制)
+        // difference between fullwidth and halfwidth (except space)：65248(decimal)
         cCode = (cCode >= 0x0021 && cCode <= 0x007E) ? (cCode + 65248) : cCode;
-        //處理空格
+        // handle space
         cCode = (cCode == 0x0020) ? 0x03000 : cCode;
         result = result.concat(String.fromCharCode(cCode));
     }
     return result;
 }
 
-function toSBC(str) {
+/**
+ *  Transform characters of fullwidth to characteres of halfwidth
+ * @param {string} str - fullwidth string
+ */
+function ToSBC(str) {
     var result = "";
     var len = str.length;
     for (var i = 0; i < len; i++) {
         var cCode = str.charCodeAt(i);
-        //全形與半形相差（除空格外）：65248（十進位制）
+        // difference between fullwidth and halfwidth (except space)：65248(decimal)
         cCode = (cCode >= 0xFF01 && cCode <= 0xFF5E) ? (cCode - 65248) : cCode;
-        //處理空格
+        // handle space
         cCode = (cCode == 0x03000) ? 0x0020 : cCode;
         result = result.concat(String.fromCharCode(cCode));
     }
     return result;
 }
 
-function TranslateKeys(fileHandler, fetchCmd, flatCmd, unflatCmd, baseJsonArr, compJsonArr, url, language, outputFile) {
+/**
+ * Translate key-value pair from its source language to user-specified language
+ * @param {module} fileHandler - I/O manipulator 
+ * @param {module} fetchCmd - HTTP handler
+ * @param {module} flatCmd - JSON folding handler
+ * @param {module} unflatCmd - JSON unfolding handler
+ * @param {JSON} baseJsonArr - Input JSON array
+ * @param {string} url - API url
+ * @param {string} language - target language
+ * @param {string} outputFile - output file path
+ * @param {string} expression - regular expression
+ */
+function TranslateKeys(fileHandler, fetchCmd, flatCmd, unflatCmd, baseJsonArr, url, language, outputFile, expression) {
+    if (!fileHandler) {
+        console.error(`[TranslateTerms][ERROR] Undefined fileHandler`);
+        process.exit();
+    }
+
+    if (!fetchCmd) {
+        console.error(`[TranslateTerms][ERROR] Undefined fetchCmd`);
+        process.exit();
+    }
+
+    if (!flatCmd) {
+        console.error(`[TranslateTerms][ERROR] Undefined flatCmd`);
+        process.exit();
+    }
+
+    if (!unflatCmd) {
+        console.error(`[TranslateTerms][ERROR] Undefined unflatCmd`);
+        process.exit();
+    }
+
     if (!baseJsonArr) {
         console.error(`[TranslateTerms][ERROR] Undefined baseJsonArr`);
         process.exit();
     }
 
-    if (!compJsonArr) {
-        console.error(`[TranslateTerms][ERROR] Undefined compJsonArr`);
+    if (!url) {
+        console.error(`[TranslateTerms][ERROR] Undefined url`);
         process.exit();
     }
 
@@ -104,56 +147,69 @@ function TranslateKeys(fileHandler, fetchCmd, flatCmd, unflatCmd, baseJsonArr, c
         process.exit();
     }
 
+    if (!outputFile) {
+        console.error(`[TranslateTerms][ERROR] Undefined outputFile`);
+        process.exit();
+    }
+
+    if (!expression) {
+        console.error(`[TranslateTerms][ERROR] Undefined expression`);
+        process.exit();
+    }
+
+    /**
+     * @var outputArr - translated texts stored as JSON
+     * @var flattenedBaseJsonArr - folded input JSON
+     * @var idx - index of JSON structure
+     * @var keys - collection of keys of flatten JSON
+     * @constant regex - token pattern
+     */
     var outputArr = {};
-    var undefinedTerms = [];
-    var count = 0;
     var flattenedBaseJsonArr = flatCmd(baseJsonArr);
-    var flattenedCompJsonArr = flatCmd(compJsonArr);
-
-    for (var key in flattenedBaseJsonArr) {
-        if (flattenedCompJsonArr[key] !== undefined) {
-            outputArr[key] = flattenedCompJsonArr[key];
-        } else {
-            outputArr[key] = "";
-            // console.log(`key: ${key}`);
-            undefinedTerms.push({ "idx": count, "key": key });
-            count++;
-        }
-    }
-
-    if (undefinedTerms.length == 0) {
-        outputArr = unflatCmd(outputArr, { object: true });
-        // console.log(outputArr);
-        WriteJsonFile(fileHandler, outputFile, JSON.stringify(outputArr, null, 2));
-        return;
-    }
-
-    // Translate the undefined terms here
     var idx = 0;
-    var length = undefinedTerms.length;
-    const regex = /\{.*?\}/g;
+    var keys = Object.keys(flattenedBaseJsonArr);
+    const regex = expression ? RegExp(expression, 'g') : null; // /\{.*?\}/g;
+
+    /**
+     * Iterate all terms of folded JSON; translate them into specified target language
+     * @param {module} fetchCmd - HTTP handler
+     * @param {string} url - API url
+     * @param {string} srcLang - source language
+     * @param {string} targetLang - target language
+     * @param {string} term - text to be translated
+     */
     (async function TranslatePromise(fetchCmd, url, srcLang, targetLang, term) {
 
+        /**
+         * @var {Number} delay - a random period between 5 & 10 seconds to avoid being mistaken as malicious attack
+         * @var {Array} splits - array of texts split by pattern
+         * @var {string} joinedSplits - text that joins split texts together after processing
+         * @var {Array} tokens - collection of tokens that fit the pattern
+         * @var {string} token - matched token
+         */
         var delay = GetRandomIntInclusive(5, 10) * 1000; //ms
 
-        // String Processing Here: 
-        // [1] split texts with specified regular expression
-        var splits = flattenedBaseJsonArr[term.key].split(regex);
+        // String Processing Here:
 
-        // [2] Join texts to be translated with commas, '~~'
-        var joinedSplits = splits.map(elem => elem.replace(/\n/g, '<br>')   // '`'
-            .replace(' ', '%20'))     // ' '
+        // [1] split texts with specified regular expression
+        var splits = term.split(regex);
+        // [2] Join texts to be translated with '~~'
+        var joinedSplits = splits.map(elem => elem.replace(/\n/g, '<br>'))  // '\n'
+            .map(elem => elem.replace(' ', '%20'))     // ' '
             .join('%7e%7e');                           // '~~'
         // console.log(joinedSplits);
 
         // [3] Store tokens in an array, which is later append to the translated texts
         var tokens = [];
         var token;
-        while ((token = regex.exec(flattenedBaseJsonArr[term.key])) != null)
+        while ((token = regex.exec(term)) != null)
             tokens.push(token[0]);
 
         setTimeout(() => {
-            var uri = `${url}client=gtx&dt=t&dj=1&ie=UTF-8&sl=en&tl=${language}&q=${joinedSplits}`;
+            /**
+             * @var {string} uri - HTTP request uri
+             */
+            var uri = `${url}client=gtx&dt=t&dj=1&ie=UTF-8&sl=${srcLang}&tl=${targetLang}&q=${joinedSplits}`;
             console.log(`initial uri: ${uri}`);
 
             fetchCmd(uri, {
@@ -161,50 +217,43 @@ function TranslateKeys(fileHandler, fetchCmd, flatCmd, unflatCmd, baseJsonArr, c
                 headers: { "Content-Type": "application/json; charset=utf-8" },
                 redirect: "follow",
                 referrer: "no-referrer"
-            })
-                .then(rsp => {
-                    if (!rsp.ok) {
-                        outputArr = unflatCmd(outputArr, { object: true });
-                        WriteJsonFile(fileHandler, outputFile, JSON.stringify(outputArr, null, 2));
-                        throw 'fetch error';
-                    }
-                    else
-                        return rsp.json();
-                })
-                .then(data => {
-                    // console.log(`initial trans: ${data.sentences[0].trans}`);
+            }).then(rsp => {
+                if (!rsp.ok) {
+                    outputArr = unflatCmd(outputArr, { object: true });
+                    WriteJsonFile(fileHandler, outputFile, JSON.stringify(outputArr, null, 2));
+                    throw 'fetch error';
+                }
+                else
+                    return rsp.json();
+            }).then(data => {
+                /**
+                 * @var {string} translatedTexts - translated sub-texts separated by '~~'
+                 * @var {string} text - final merged, translated text
+                 */
+                var translatedTexts = data.sentences[0].trans.replace(/<br>/g, '\n').split('~~');
+                var text = translatedTexts[0];
 
-                    var translatedTexts = data.sentences[0].trans.replace(/<br>/g, '\n').split('~~');
-                    var text = translatedTexts[0];
-                    // console.log(translatedTexts);
-                    for (var i = 0; i < tokens.length; i++)
-                        text = text.concat(tokens[i]).concat(translatedTexts[i + 1] ? translatedTexts[i + 1] : '');
-                    outputArr[term.key] = toSBC(text);
-                    //console.log(`translated text: ${text}`);
+                for (var i = 0; i < tokens.length; i++)
+                    text = text.concat(tokens[i]).concat(translatedTexts[i + 1] ? translatedTexts[i + 1] : '');
+                outputArr[keys[idx]] = ToSBC(text);
+                //console.log(`translated text: ${text}`);
 
-                    // Halt asynchronous operation if whole undefined terms have been translated
-                    idx++;
-                    if (idx == length) {
-                        outputArr = unflatCmd(outputArr, { object: true });
-                        WriteJsonFile(fileHandler, outputFile, JSON.stringify(outputArr, null, 2));
-                        return;
-                    }
-                    else {
-                        TranslatePromise(fetchCmd, url, 'en', targetLang, undefinedTerms.find(elem => {
-                            if (elem.idx == idx)
-                                return elem;
-                        }));
-                    }
-
-                }).catch(err => {
-                    console.error(`${err}`);
-                    process.exit();
-                });
+                // Halt asynchronous operation if whole terms have been translated
+                idx++;
+                if (idx == keys.length) {
+                    outputArr = unflatCmd(outputArr, { object: true });
+                    WriteJsonFile(fileHandler, outputFile, JSON.stringify(outputArr, null, 2));
+                    return;
+                }
+                else {
+                    TranslatePromise(fetchCmd, url, 'en', targetLang, flattenedBaseJsonArr[keys[idx]]);
+                }
+            }).catch(err => {
+                console.error(`${err}`);
+                process.exit();
+            });
         }, delay);
-    })(fetchCmd, url, 'en', language, undefinedTerms.find(elem => {
-        if (elem.idx == idx)
-            return elem;
-    }));
+    })(fetchCmd, url, 'en', language, flattenedBaseJsonArr[keys[idx]]);
 }
 
 // Exporting variables and functions
