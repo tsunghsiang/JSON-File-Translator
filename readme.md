@@ -116,7 +116,7 @@ Ex: **output/ja.json**
 
 To know how to define a regular expression, please refer to the [link](https://regex101.com/).
 
-#Sample
+# Sample
 To experience the power of the tool, I strongly suggest you type the command given yourself. There are test [input file](input/test.json) and [output file](output/ja.json) correspondingly. 
 
 ```json
