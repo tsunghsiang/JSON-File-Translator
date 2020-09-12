@@ -107,15 +107,8 @@ $ node -r esm -r fs -r node-fetch -r flat language-parser.js {target language} {
 
 # Notice
 Although most translation issue is resolved in the tool, inclusive of multi-level parsing and translation API, there are still some issues users need to be aware of since it might affect your final execution result.
-#### [1] Network Problem
+#### Network Problem
 As mentioned, the tool send HTTP requests to remote Google server for translation. It might interrupt your requests if you send too many requests in a short period of time. Therefore in the source code each translation request would delay a random duration between 5 and 10 seconds to avoid being mistaken as malicious attacks.
 ```javascript
 var delay = GetRandomIntInclusive(5, 10) * 1000; //ms
-```
-#### [2] Fullwidth Typo
-Not all texts could be translated well as we want. Some texts might be translated into **fullwidth** words based on type of target language, which make the presentation kind of weired. Check futher after program terminates.
-```JSON
-{
-    "link": "URL（例：https：// urlまたはhttp：// url）"
-}
 ```
