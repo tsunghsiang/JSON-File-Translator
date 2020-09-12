@@ -1,7 +1,14 @@
-# Prelude
-To support multi-language translation for business requirements, the tool. is developed to solve mass translation issues, especially for those who always suffers from massive language translation problem. First of all, the tool applies **free Google Translation API** without both payments and API key authentication. Secondly, it supports **multi-level fields parsing** in a JSON file, which is not restricted to the conventional **key-value** resolution. 
+# Introduction
+To support multi-language translation for business requirements, the tool, **JSON File Translator**, is developed to solve mass translation issues, especially for those who always suffers from massive language translation problem. The tool contains features as below:
 
-That is to say, regardless of formats of the JSON files, this tool is able to parse them; fold multi-level fields into a single key, which converges to the simplest **key-value** form for resolution. It would unfold the translated texts back to form of multi-level fields thereafter.
+* **Free Google Translation API**
+It provides users a more convenient way to apply the service without extra fees and authentication.
+
+* **Multi-Level Fields Folding/Unfolding**
+Unlike conventional **1 on 1** key-value mapping, it gives users the flexibility to define **1 on (\*) on (\*) ...** JSON format for translation without redundant parsing on their own. The translated result will be un-folded back to original form.
+
+* **String Pattern Reservation**
+For some business applications, developers get used to applying some string pattern for recognition or replacement when applications run. The tool provides the option for developers to choose if required.
 
 # Prerequisite
 #### [1] Node JS Version
@@ -11,7 +18,7 @@ $ node -v
 ```
 
 #### [2] Installation
-To run the application, some modules is required for I/O, http requests, module loading and field folding as below. Administration priviledge might be needed for package installtion process.
+To run the application, some modules is required for I/O, http requests, module loading and fields folding as below. Administration priviledge might be needed for package installtion process.
 
 The tool is going to manipulate file I/O. Therefore module **[fs](https://www.npmjs.com/package/fs)** is needed.
 ```sh
@@ -28,14 +35,14 @@ To load external scripts, **[esm](https://github.com/standard-things/esm)** supp
 $ sudo npm install --save esm
 ```
 
-To resolve JSON files in forms of multi-level keys, we apples 3rd-party package **[flat](https://github.com/hughsk/flat)** to realize the folding technique, which simplifies parsing complexity.
+To resolve JSON files in forms of multi-level keys, we apply 3rd-party package **[flat](https://github.com/hughsk/flat)** to realize the folding technique, which simplifies parsing complexity.
 ```sh
 $ sudo npm install --save flat
 ```
 
 # Feature
 #### [1] Free Google Translation API
-To support mass translation without both payments and authentication, we use a free online Google API as below.
+To support mass translation without both payments and API authentication, we use a free online Google API as below.
 
 Method: **GET**
 Url: http://translate.google.cn/translate_a/single
@@ -68,7 +75,7 @@ If you are goiing to translate the JSON data, you need to know all the keys in o
 	'A.B.C.D': 'final'
 }
 ```
-After translation work is done, the application would **unfold** the result into its original form with translated texts. For example, if the sample above takes **en** as the source language and **zh-TW** as the target language. The JSON form after translation and unfolding would be
+After translation task is done, the application would **unfold** the result into its original form with translated texts. For example, if the sample above takes **en** as the source language and **zh-TW** as the target language. The JSON form after translation and unfolding would be
 ```json
 {
 	'A': {
@@ -81,32 +88,119 @@ After translation work is done, the application would **unfold** the result into
 }
 ```
 
-#### [3] Token { token } Recognition
-In our system, we use pattern **{ token }** to indicates words to be replaced with other symbols when running on system. So this tool would reserve the words fitting the pattern; combine them with translated texts. 
+#### [3] String Token Reservation
+As many online applications, they usually read a configuration file to replace vocabulary or some pattern with corresponding symbols. Therefore developers prefer to keep them as usual instead of change them when translation task begins. The tool would reserve the words fitting the pattern; combine them with translated texts. 
 
-For example, we choose Japanese as our target language.
+For example, we choose Japanese as our target language. Besides, we define a regular expression **/\\{.*?\\}/g** to recognize any strings that match the pattern and keep them static.
 ```json
-"confirm_delete_airdrop_addresses": "Confirm to you want to delete \"{address}\"?"
+"alert": "Confirm to you want to delete \"{address}\"?"
 ```
 would be translated to
 ```json
-"confirm_delete_airdrop_addresses": "「{address}」を削除してもよろしいですか？"
+"alert": "「{address}」を削除してもよろしいですか？"
 ```
 
 # Usage
-In CYBAVO, we update our system translation 2 times every month by adding new items. Defaultly, **The english version is applied as a base** to be compared with other language version and to be translated into corresponding specified language.
-
 ```sh
-$ node -r esm -r fs -r node-fetch -r flat language-parser.js {target language} {input base file} {input comparison file}
+$ node -r esm -r fs -r node-fetch -r flat language-parser.js {target language} {input JSON file path} {output JSON file path} {pattern}
 ```
-**{target language}**: the language version you would like to translate to.
+**{target language}**: the [language version](https://cloud.google.com/translate/docs/languages) you would like to translate to.
 
-**{input base file}**: The base file to be translated, usually english version is specified.
+**{input JSON file path}**: The input JSON file to be translated. Remember that the format should abide by JSON standard, otherwise the program will crash.
+Ex: **input/test.json**
 
-**{input comparison file}**: Different language files might differ in some fields. The argument should be provided for the tool to recognize whether there are any missed fields needed to be translated. For example, file en.json contains field of key `name` but ja.json does not. So the tool would translate the corresponding fields into Japanese.
+**{output JSON file path}**: The output file path of translated JSON file.
+Ex: **output/ja.json**
+
+**{pattern}**: (optional) Developers could specify a defined regular expression to reserve texts that fit the pattern for further process in the future. Ex: **\\{.*?\\}**
+
+To know how to define a regular expression, please refer to the [link](https://regex101.com/).
+
+#Sample
+To experience the power of the tool, I strongly suggest you type the command given yourself. There are test [input file](input/test.json) and [output file](output/ja.json) correspondingly. 
+
+```json
+{
+    "greetings": "hello there!",
+    "self-introduction": "My name is {name}",
+    "security": {
+        "birthday": "When is your birthday date?",
+        "login": "id: {id}, password: {password}"
+    },
+    "department": {
+        "software": {
+            "count": "Total: {count} people on SW",
+            "state": {
+                "on-board": "0",
+                "on-vacation": "1",
+                "quit": "2",
+                "laid-off": "3"
+            }
+        },
+        "hardware:": {
+            "count": "Total: {count} people on HW",
+            "state": {
+                "on-board": "0",
+                "on-vacation": "1",
+                "quit": "2",
+                "laid-off": "3"
+            }
+        },
+        "design": {
+            "count": "We have {amount} logos",
+            "state": {
+                "on-board": "0",
+                "on-vacation": "1",
+                "quit": "2",
+                "laid-off": "3"
+            }
+        }
+    }
+}
+```
+```json
+{
+  "greetings": "こんにちは!",
+  "self-introduction": "私の名前は{name}です",
+  "security": {
+    "birthday": "あなたの誕生日はいつですか?",
+    "login": "ID:{id}、パスワード:{password}"
+  },
+  "department": {
+    "software": {
+      "count": "合計:SWの{count}人",
+      "state": {
+        "on-board": "0",
+        "on-vacation": "1",
+        "quit": "2",
+        "laid-off": "3"
+      }
+    },
+    "hardware:": {
+      "count": "合計:HWの{count}人",
+      "state": {
+        "on-board": "0",
+        "on-vacation": "1",
+        "quit": "2",
+        "laid-off": "3"
+      }
+    },
+    "design": {
+      "count": "{amount}ロゴがあります",
+      "state": {
+        "on-board": "0",
+        "on-vacation": "1",
+        "quit": "2",
+        "laid-off": "3"
+      }
+    }
+  }
+}
+```
+You can specify any [languages](https://cloud.google.com/translate/docs/languages) for translation.
 
 # Notice
-Although most translation issue is resolved in the tool, inclusive of multi-level parsing and translation API, there are still some issues users need to be aware of since it might affect your final execution result.
+Although most translation issue is resolved in the tool, inclusive of multi-level parsing, translation API and pattern recognition, there are still some issues users need to be aware of since it might affect your final execution result.
 #### Network Problem
 As mentioned, the tool send HTTP requests to remote Google server for translation. It might interrupt your requests if you send too many requests in a short period of time. Therefore in the source code each translation request would delay a random duration between 5 and 10 seconds to avoid being mistaken as malicious attacks.
 ```javascript

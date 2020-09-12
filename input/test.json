@@ -1,0 +1,37 @@
+{
+    "greetings": "hello there!",
+    "self-introduction": "My name is {name}",
+    "security": {
+        "birthday": "When is your birthday date?",
+        "login": "id: {id}, password: {password}"
+    },
+    "department": {
+        "software": {
+            "count": "Total: {count} people on SW",
+            "state": {
+                "on-board": "0",
+                "on-vacation": "1",
+                "quit": "2",
+                "laid-off": "3"
+            }
+        },
+        "hardware:": {
+            "count": "Total: {count} people on HW",
+            "state": {
+                "on-board": "0",
+                "on-vacation": "1",
+                "quit": "2",
+                "laid-off": "3"
+            }
+        },
+        "design": {
+            "count": "We have {amount} logos",
+            "state": {
+                "on-board": "0",
+                "on-vacation": "1",
+                "quit": "2",
+                "laid-off": "3"
+            }
+        }
+    }
+}

@@ -1,0 +1,37 @@
+{
+  "greetings": "こんにちは!",
+  "self-introduction": "私の名前は{name}です",
+  "security": {
+    "birthday": "あなたの誕生日はいつですか?",
+    "login": "ID:{id}、パスワード:{password}"
+  },
+  "department": {
+    "software": {
+      "count": "合計:SWの{count}人",
+      "state": {
+        "on-board": "0",
+        "on-vacation": "1",
+        "quit": "2",
+        "laid-off": "3"
+      }
+    },
+    "hardware:": {
+      "count": "合計:HWの{count}人",
+      "state": {
+        "on-board": "0",
+        "on-vacation": "1",
+        "quit": "2",
+        "laid-off": "3"
+      }
+    },
+    "design": {
+      "count": "{amount}ロゴがあります",
+      "state": {
+        "on-board": "0",
+        "on-vacation": "1",
+        "quit": "2",
+        "laid-off": "3"
+      }
+    }
+  }
+}
