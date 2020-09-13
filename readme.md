@@ -1,13 +1,13 @@
 # Introduction
 To support multi-language translation for business requirements, the tool, **JSON File Translator**, is developed to solve mass translation issues, especially for those who always suffers from massive language translation problem. The tool contains features as below:
 
-* **Free Google Translation API**
+* **Free Google Translation API**:
 It provides users a more convenient way to apply the service without extra fees and authentication.
 
-* **Multi-Level Fields Folding/Unfolding**
+* **Multi-Level Fields Folding/Unfolding**:
 Unlike conventional **1 on 1** key-value mapping, it gives users the flexibility to define **1 on (\*) on (\*) ...** JSON format for translation without redundant parsing on their own. The translated result will be un-folded back to original form.
 
-* **String Pattern Reservation**
+* **String Pattern Reservation**:
 For some business applications, developers get used to applying some string pattern for recognition or replacement when applications run. The tool provides the option for developers to choose if required.
 
 # Prerequisite
@@ -202,7 +202,7 @@ You can specify any [languages](https://cloud.google.com/translate/docs/language
 # Notice
 Although most translation issue is resolved in the tool, inclusive of multi-level parsing, translation API and pattern recognition, there are still some issues users need to be aware of since it might affect your final execution result.
 #### Network Problem
-As mentioned, the tool send HTTP requests to remote Google server for translation. It might interrupt your requests if you send too many requests in a short period of time. Therefore in the source code each translation request would delay a random duration between 5 and 10 seconds to avoid being mistaken as malicious attacks.
+As mentioned, the tool sends HTTP requests to remote Google server for translation. It might interrupt your requests if you send too many requests in a short period of time. Therefore in the source code each translation request would delay a random duration between 5 and 10 seconds to avoid being mistaken as malicious attacks.
 ```javascript
 var delay = GetRandomIntInclusive(5, 10) * 1000; //ms
 ```
